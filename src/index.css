@@ -1,13 +1,61 @@
+@font-face {
+  font-family: 'TeleGrotesk Next';
+  src: url('assets/fonts/TeleGroteskNextThin.ttf');
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: 'TeleGrotesk Next';
+  src: url('assets/fonts/TeleGroteskNextRegular.ttf');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'TeleGrotesk Next';
+  src: url('assets/fonts/TeleGroteskNextRegularItalic.ttf');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'TeleGrotesk Next';
+  src: url('assets/fonts/TeleGroteskNextMedium.ttf');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'TeleGrotesk Next';
+  src: url('assets/fonts/TeleGroteskNextMediumItalic.ttf');
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'TeleGrotesk Next';
+  src: url('assets/fonts/TeleGroteskNextBold.ttf');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'TeleGrotesk Next';
+  src: url('assets/fonts/TeleGroteskNextBoldItalic.ttf');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'TeleGrotesk Next';
+  src: url('assets/fonts/TeleGroteskNextUltra.ttf');
+  font-weight: 800;
+}
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  margin: 0 !important;
+  font-family: 'TeleGrotesk Next', 'Roboto', 'Helvetica', 'Arial', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }

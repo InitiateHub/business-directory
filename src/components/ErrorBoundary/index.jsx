@@ -34,7 +34,7 @@ export class ErrorBoundary extends React.Component {
             width: '100vw',
           }}
         >
-          <Typography>Something went wrong.</Typography>
+          <Typography>Oops! Something went wrong. 😥</Typography>
           <Button variant="outlined" onClick={() => window.location.reload()}>
             Please, reload the page
           </Button>

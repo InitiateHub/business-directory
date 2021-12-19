@@ -54,14 +54,14 @@ function App() {
         <Router>
           <NavBar />
 
-          <Box className={classes.container}>
-            <Compose components={[DirectoryProvider]}>
-              <Switch>
-                <Route path="/">
-                  <DirectoryHome />
-                </Route>
-              </Switch>
-            </Compose>
+          <Box>
+            {/* <Compose components={[DirectoryProvider]}> */}
+            <Switch>
+              <Route path="/">
+                <DirectoryHome />
+              </Route>
+            </Switch>
+            {/* </Compose> */}
           </Box>
         </Router>
         <Footer />

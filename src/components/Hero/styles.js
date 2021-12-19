@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
   },
   bar: {
     color: theme.palette.primary.main,
-    // boxShadow: '0 3px 6px #00000029',
+    boxShadow: '0 3px 6px #00000029',
   },
   toolbar: {
     position: 'relative',
@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     borderRadius: 0,
   },
   logo: {
-    // height: 70,
+    height: 70,
     marginLeft: theme.spacing(2),
   },
   search: {
