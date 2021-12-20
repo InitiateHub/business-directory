@@ -83,6 +83,15 @@ const useStyles = makeStyles(theme => ({
   menuIconsContainer: {
     marginLeft: '15px',
   },
+  topMenuButton: {
+    border: 'none',
+    backgroundColor: 'transparent',
+    color: '#333',
+    '&:hover': {
+      backgroundColor: '#E20874',
+      color: '#fff',
+    },
+  },
   userInfo: {
     float: 'right',
     // paddingLeft: '100px',

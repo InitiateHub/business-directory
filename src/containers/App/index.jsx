@@ -55,13 +55,13 @@ function App() {
           <NavBar />
 
           <Box>
-            {/* <Compose components={[DirectoryProvider]}> */}
-            <Switch>
-              <Route path="/">
-                <DirectoryHome />
-              </Route>
-            </Switch>
-            {/* </Compose> */}
+            <Compose components={[DirectoryProvider]}>
+              <Switch>
+                <Route path="/">
+                  <DirectoryHome />
+                </Route>
+              </Switch>
+            </Compose>
           </Box>
         </Router>
         <Footer />

@@ -140,7 +140,7 @@ export default {
     },
   },
   shape: {
-    borderRadius: 4,
+    borderRadius: 10,
   },
   transitions: {
     easing: {

@@ -10,10 +10,12 @@ import {
   InputBase,
   useMediaQuery,
   Link,
+  Grid,
+  Button,
+  Box,
 } from '@material-ui/core';
-import Box from '@material-ui/core/Box';
-import IconButton from '@material-ui/core/IconButton';
 import DrawerComponent from 'components/DrawerComponent';
+import NavigationButton from 'components/NavigationButton';
 import useStyles from './styles';
 
 function NavBar() {
@@ -43,18 +45,34 @@ function NavBar() {
         elevation={0}
       >
         <Toolbar className={classes.toolbar}>
-          <Typography variant="h4" className={classes.logo}>
-            TBD
-          </Typography>
-          {isMobile ? (
-            <DrawerComponent />
-          ) : (
-            <div className={classes.navlinks}>
-              <Link to="/" className={classes.link}>
-                Register Business
-              </Link>
-            </div>
-          )}
+          <Grid item container>
+            <Grid item xs={false} sm={2} />
+            <Grid item container xs={12} sm={8} justifyContent="space-between">
+              <Typography variant="h4" className={classes.logo}>
+                TBD
+              </Typography>
+              {isMobile ? (
+                <DrawerComponent />
+              ) : (
+                <div className={classes.navlinks}>
+                  <Button variant="contained">Register Business</Button>
+
+                  <NavigationButton
+                    className={classes.topMenuButton}
+                    color="primary"
+                    label="Register Business"
+                    // icon={<InformationIcon />}
+                    route="/register-businiess"
+                  />
+
+                  <Link to="/" className={classes.link}>
+                    <a className={classes.btnLink}>Register Business</a>
+                  </Link>
+                </div>
+              )}
+            </Grid>
+            <Grid item xs={false} sm={2} />
+          </Grid>
         </Toolbar>
       </AppBar>
     </Box>
