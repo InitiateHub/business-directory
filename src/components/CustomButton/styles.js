@@ -19,10 +19,20 @@ const useStyles = makeStyles(theme => ({
       stroke: 'none',
     },
   },
-  buttonIcon: {
+  startButtonIcon: {
     marginLeft: 0,
     marginRight: theme.spacing(1.25),
     fill: 'currentColor',
+  },
+  endButtonIcon: {
+    width: 10,
+    marginLeft: theme.spacing(1.25),
+    marginRight: 0,
+    fill: 'currentColor',
+
+    '& path': {
+      stroke: '#fff',
+    },
   },
 }));
 export default useStyles;

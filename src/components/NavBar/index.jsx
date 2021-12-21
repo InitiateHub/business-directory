@@ -45,29 +45,29 @@ function NavBar() {
         elevation={0}
       >
         <Toolbar className={classes.toolbar}>
-          <Grid item container>
+          <Grid item container className={classes.content}>
             <Grid item xs={false} sm={2} />
-            <Grid item container xs={12} sm={8} justifyContent="space-between">
-              <Typography variant="h4" className={classes.logo}>
-                TBD
+            <Grid
+              item
+              container
+              xs={12}
+              sm={8}
+              justifyContent="space-between"
+              alignItems="center"
+            >
+              <Typography variant="h5" component="h1" className={classes.logo}>
+                #TheBusinessDirectory
               </Typography>
               {isMobile ? (
                 <DrawerComponent />
               ) : (
                 <div className={classes.navlinks}>
-                  <Button variant="contained">Register Business</Button>
-
                   <NavigationButton
-                    className={classes.topMenuButton}
                     color="primary"
                     label="Register Business"
                     // icon={<InformationIcon />}
                     route="/register-businiess"
                   />
-
-                  <Link to="/" className={classes.link}>
-                    <a className={classes.btnLink}>Register Business</a>
-                  </Link>
                 </div>
               )}
             </Grid>

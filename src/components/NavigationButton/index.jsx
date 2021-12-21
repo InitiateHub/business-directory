@@ -34,6 +34,7 @@ function NavigationButton(props) {
         root: classes.button,
         startIcon: classes.buttonIcon,
       }}
+      color={color}
       startIcon={icon}
       variant={variant}
       {...rest}
@@ -57,7 +58,7 @@ NavigationButton.propTypes = {
 NavigationButton.defaultProps = {
   icon: null,
   navigating: true,
-  active: true,
+  active: false,
   route: '',
   variant: 'contained',
   color: 'primary',

@@ -1,6 +1,9 @@
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 const useStyles = makeStyles(theme => ({
+  content: {
+    padding: 24,
+  },
   container: {
     position: 'sticky',
     top: 0,
@@ -9,11 +12,13 @@ const useStyles = makeStyles(theme => ({
   },
   bar: {
     color: theme.palette.primary.main,
+    height: theme.spacing(11),
     // boxShadow: '0 3px 6px #00000029',
   },
   toolbar: {
     position: 'relative',
     padding: 0,
+    height: '100%',
   },
   menuButton: {
     width: 70,

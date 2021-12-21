@@ -1,57 +1,57 @@
 @font-face {
-  font-family: 'TeleGrotesk Next';
-  src: url('assets/fonts/TeleGroteskNextThin.ttf');
+  font-family: 'Mulish';
+  src: url('./assets/fonts/Mulish//MulishLight.ttf');
   font-weight: 100;
 }
 
 @font-face {
-  font-family: 'TeleGrotesk Next';
-  src: url('assets/fonts/TeleGroteskNextRegular.ttf');
+  font-family: 'Mulish';
+  src: url('assets/fonts/Mulish//MulishRegular.ttf');
   font-weight: normal;
 }
 
 @font-face {
-  font-family: 'TeleGrotesk Next';
-  src: url('assets/fonts/TeleGroteskNextRegularItalic.ttf');
+  font-family: 'Mulish';
+  src: url('assets/fonts/Mulish//MulishItalic.ttf');
   font-weight: normal;
   font-style: italic;
 }
 
 @font-face {
-  font-family: 'TeleGrotesk Next';
-  src: url('assets/fonts/TeleGroteskNextMedium.ttf');
+  font-family: 'Mulish';
+  src: url('assets/fonts/Mulish//MulishMedium.ttf');
   font-weight: 500;
 }
 
 @font-face {
-  font-family: 'TeleGrotesk Next';
-  src: url('assets/fonts/TeleGroteskNextMediumItalic.ttf');
+  font-family: 'Mulish';
+  src: url('assets/fonts/Mulish//MulishMediumItalic.ttf');
   font-weight: 500;
   font-style: italic;
 }
 
 @font-face {
-  font-family: 'TeleGrotesk Next';
-  src: url('assets/fonts/TeleGroteskNextBold.ttf');
+  font-family: 'Mulish';
+  src: url('assets/fonts/Mulish//MulishBold.ttf');
   font-weight: 700;
 }
 
 @font-face {
-  font-family: 'TeleGrotesk Next';
-  src: url('assets/fonts/TeleGroteskNextBoldItalic.ttf');
+  font-family: 'Mulish';
+  src: url('assets/fonts/Mulish//MulishBoldItalic.ttf');
   font-weight: 700;
   font-style: italic;
 }
 
 @font-face {
-  font-family: 'TeleGrotesk Next';
-  src: url('assets/fonts/TeleGroteskNextUltra.ttf');
+  font-family: 'Mulish';
+  src: url('assets/fonts/Mulish//MulishExtraBold.ttf');
   font-weight: 800;
 }
 
 body {
   margin: 0 !important;
-  font-family: 'TeleGrotesk Next', 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-family: 'Mulish', 'Roboto', 'Helvetica', 'Arial', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
