@@ -2,7 +2,9 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 
 const useStyles = makeStyles(theme => ({
   content: {
-    padding: 24,
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(3),
+    },
   },
   container: {
     position: 'sticky',

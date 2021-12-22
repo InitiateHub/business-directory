@@ -6,27 +6,20 @@ const useStyles = makeStyles(theme => ({
       padding: theme.spacing(3),
     },
   },
-  box: {
+  card: {
     display: 'flex',
-    flexDirection: 'column',
+    flexWrap: 'nowrap',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '100%',
-    textAlign: 'center',
-    padding: 24,
-    color: theme.palette.common.white,
-    '& > *': {
-      marginBottom: theme.spacing(4),
-      '&: last - child': {
-        marginBottom: 0,
-      },
-    },
   },
   title: {
     // fontSize: '44px',
   },
-  subTitle: {
+  description: {
     // fontWeight
+  },
+  icon: {
+    // icons
   },
 }));
 export default useStyles;

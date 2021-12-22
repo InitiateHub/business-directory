@@ -1,6 +1,17 @@
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 const useStyles = makeStyles(theme => ({
+  // heroContainer: ({ height, bgImagePath }) => ({
+  //   minHeight: `${height}px`,
+  //   backgroundImage: `url(${bgImagePath})`,
+  //   backgroundSize: 'cover',
+  //   backgroundPosition: 'center',
+  //   margin: -4,
+
+  //   [theme.breakpoints.down('sm')]: {
+  //     padding: theme.spacing(3),
+  //   },
+  // }),
   box: {
     display: 'flex',
     flexDirection: 'column',

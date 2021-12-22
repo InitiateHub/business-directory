@@ -13,6 +13,9 @@ const Hero = ({ bgImagePath, height, title, subTitle }) => {
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       margin: -4,
+      // [theme.breakpoints.down('sm')]: {
+      //   padding: theme.spacing(3),
+      // },
       padding: 24,
     },
   };
