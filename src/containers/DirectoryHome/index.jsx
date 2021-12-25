@@ -12,13 +12,7 @@ function DirectoryHome() {
   return (
     <>
       <Hero bgImagePath={HeroBG} title={heroTitle} subTitle={heroSubTitle} />
-      <Grid item container>
-        <Grid item xs={false} sm={2} />
-        <Grid item xs={12} sm={8}>
-          <Featured />
-        </Grid>
-        <Grid item xs={false} sm={2} />
-      </Grid>
+      <Featured />
     </>
   );
 }

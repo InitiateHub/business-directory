@@ -13,6 +13,10 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
   },
   bar: {
+    position: 'sticky',
+    top: 0,
+    // zIndex: 2000,
+    flexGrow: 1,
     color: theme.palette.primary.main,
     height: theme.spacing(11),
     // boxShadow: '0 3px 6px #00000029',

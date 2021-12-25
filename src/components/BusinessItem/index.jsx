@@ -8,6 +8,7 @@ import {
   CardMedia,
 } from '@material-ui/core';
 import { LocationOn, Phone } from '@material-ui/icons';
+import CustomButton from 'components/CustomButton';
 import PropTypes from 'prop-types';
 import useStyles from './styles';
 
@@ -21,32 +22,40 @@ const BusinessItem = () => {
     location: 'abansi',
   };
   const { name, description, image, phone, location } = business;
+  const placeholderImage = 'https://via.placeholder.com/150';
 
   return (
-    <Grid item xs={12} md={6} spacing={2}>
-      <Card className={classes.card}>
-        <CardMedia
-          component="img"
-          sx={{ width: 151 }}
-          image={image}
-          alt="business image"
-        />
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-          <CardContent sx={{ flex: '1 0 auto' }}>
+    <Grid item xs={12} md={6}>
+      <Box className={classes.card}>
+        <div className={classes.content}>
+          <Box className={classes.imageContainer}>
+            <CardMedia
+              component="img"
+              className={classes.cardImage}
+              image={image || placeholderImage}
+              alt="business image"
+            />
+          </Box>
+          <div className={classes.textContent}>
             <Typography component="div" variant="h5">
               {name}
             </Typography>
-            <Typography
-              variant="subtitle1"
-              color="text.secondary"
-              component="div"
-            >
+            <Typography variant="subtitle1" component="div">
               {description}
             </Typography>
-          </CardContent>
-          <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }} />
-        </Box>
-      </Card>
+            <div className={classes.info}>
+              <Box display="flex" alignItems="center">
+                <Phone /> {phone}
+              </Box>
+              <Box display="flex" alignItems="center">
+                <LocationOn /> {location}
+              </Box>
+            </div>
+            <CustomButton variant="outlined" label="View Business" />
+          </div>
+        </div>
+        <Box />
+      </Box>
     </Grid>
   );
 };

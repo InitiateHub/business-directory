@@ -36,46 +36,46 @@ function NavBar() {
   };
 
   return (
-    <Box className={classes.container}>
-      <AppBar
-        position="sticky"
-        className={classes.bar}
-        // position="relative"
-        color="inherit"
-        elevation={0}
-      >
-        <Toolbar className={classes.toolbar}>
-          <Grid item container className={classes.content}>
-            <Grid item xs={false} sm={2} />
-            <Grid
-              item
-              container
-              xs={12}
-              sm={8}
-              justifyContent="space-between"
-              alignItems="center"
-            >
-              <Typography variant="h5" component="h1" className={classes.logo}>
-                #TheBusinessDirectory
-              </Typography>
-              {isMobile ? (
-                <DrawerComponent />
-              ) : (
-                <div className={classes.navlinks}>
-                  <NavigationButton
-                    color="primary"
-                    label="Register Business"
-                    // icon={<InformationIcon />}
-                    route="/register-businiess"
-                  />
-                </div>
-              )}
-            </Grid>
-            <Grid item xs={false} sm={2} />
+    // <Box className={classes.container}>
+    <AppBar
+      position="sticky"
+      className={classes.bar}
+      // position="relative"
+      color="inherit"
+      elevation={0}
+    >
+      <Toolbar className={classes.toolbar}>
+        <Grid item container className={classes.content}>
+          <Grid item xs={false} sm={2} />
+          <Grid
+            item
+            container
+            xs={12}
+            sm={8}
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Typography variant="h5" component="h1" className={classes.logo}>
+              #TheBusinessDirectory
+            </Typography>
+            {isMobile ? (
+              <DrawerComponent />
+            ) : (
+              <div className={classes.navlinks}>
+                <NavigationButton
+                  color="primary"
+                  label="Register Business"
+                  // icon={<InformationIcon />}
+                  route="/register-businiess"
+                />
+              </div>
+            )}
           </Grid>
-        </Toolbar>
-      </AppBar>
-    </Box>
+          <Grid item xs={false} sm={2} />
+        </Grid>
+      </Toolbar>
+    </AppBar>
+    // </Box>
   );
 }
 
