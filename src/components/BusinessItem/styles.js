@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
     transition: theme.transitions.create(['box-shadow', 'transform'], {
       duration: theme.transitions.duration.standard,
     }),
-    backgroundColor: '#fff',
+    backgroundColor: '#fcfcfc',
     borderRadius: '10px',
   },
   imageContainer: {

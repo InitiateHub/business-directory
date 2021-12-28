@@ -2,6 +2,7 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import Hero from 'components/Hero';
 import Featured from 'components/Featured';
+import Categories from 'components/Categories';
 import HeroBG from 'assets/images/home-hero.png';
 
 function DirectoryHome() {
@@ -13,6 +14,7 @@ function DirectoryHome() {
     <>
       <Hero bgImagePath={HeroBG} title={heroTitle} subTitle={heroSubTitle} />
       <Featured />
+      <Categories />
     </>
   );
 }

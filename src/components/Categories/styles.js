@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     // display: 'flex',
     // flexDirection: 'column',
     paddingBlock: theme.spacing(6),
-    backgroundColor: '#FAFAFA',
+    backgroundColor: '#FFF',
   },
   title: {
     // fontSize: '44px',
@@ -27,5 +27,4 @@ const useStyles = makeStyles(theme => ({
     // fontWeight
   },
 }));
-
 export default useStyles;
