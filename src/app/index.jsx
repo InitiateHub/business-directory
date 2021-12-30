@@ -1,17 +1,19 @@
 import React, { useEffect } from 'react';
-import { HashRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Box from '@material-ui/core/Box';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import { lightTheme, darkTheme, lightBlueTheme } from 'themes';
-import DirectoryHome from 'containers/DirectoryHome';
 import { initializeAction } from 'store/actions/main';
 import { loadThemeAction } from 'store/actions/theme';
 import Compose from 'hooks/ComposeProvider';
 import Footer from 'components/Footer';
 import { ErrorBoundary } from 'components/ErrorBoundary';
 import NavBar from 'components/NavBar';
-import { DirectoryProvider } from 'containers/DirectoryHome/hooks/form-context';
+import { BusinessDirectoryProvider } from 'hooks/Context';
+import DirectoryHome from './pages/DirectoryHome';
+import RegisterBusiness from './pages/RegisterBusiness';
+import BusinessDetails from './pages/BusinessDetails';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -55,13 +57,19 @@ function App() {
           <NavBar />
 
           <Box>
-            <Compose components={[DirectoryProvider]}>
-              <Switch>
-                <Route path="/">
-                  <DirectoryHome />
-                </Route>
-              </Switch>
-            </Compose>
+            {/* <Compose components={[BusinessDirectoryProvider]}> */}
+            <Switch>
+              <Route path="/business/:id">
+                <BusinessDetails />
+              </Route>
+              <Route path="/register">
+                <RegisterBusiness />
+              </Route>
+              <Route exact path="/">
+                <DirectoryHome />
+              </Route>
+            </Switch>
+            {/* </Compose> */}
           </Box>
         </Router>
         <Footer />

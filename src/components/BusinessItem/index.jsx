@@ -9,20 +9,16 @@ import {
 } from '@material-ui/core';
 import { LocationOn, Phone } from '@material-ui/icons';
 import CustomButton from 'components/CustomButton';
+import LinkButton from 'components/LinkButton';
 import PropTypes from 'prop-types';
 import useStyles from './styles';
 
-const BusinessItem = () => {
+const BusinessItem = ({ business }) => {
   const classes = useStyles();
-  const business = {
-    image: '',
-    name: 'John',
-    description: 'Smith asdd asde dffe df',
-    phone: '+233245425258',
-    location: 'abansi',
-  };
-  const { name, description, image, phone, location } = business;
+
+  const { name, description, mainImage, phone, location } = business;
   const placeholderImage = 'https://via.placeholder.com/150';
+  // console.log(business);
 
   return (
     <Grid item xs={12} md={6}>
@@ -32,7 +28,7 @@ const BusinessItem = () => {
             <CardMedia
               component="img"
               className={classes.cardImage}
-              image={image || placeholderImage}
+              image={mainImage || placeholderImage}
               alt="business image"
             />
           </Box>
@@ -40,18 +36,22 @@ const BusinessItem = () => {
             <Typography component="div" variant="h5">
               {name}
             </Typography>
-            <Typography variant="subtitle1" component="div">
+            {/* <Typography variant="subtitle1" component="div">
               {description}
-            </Typography>
+            </Typography> */}
             <div className={classes.info}>
               <Box display="flex" alignItems="center">
-                <Phone /> {phone}
+                <Phone /> {phone.length > 0 && phone[0]}
               </Box>
               <Box display="flex" alignItems="center">
                 <LocationOn /> {location}
               </Box>
             </div>
-            <CustomButton variant="outlined" label="View Business" />
+            <LinkButton
+              variant="outlined"
+              label="View Business"
+              route={`/business/${business.id}`}
+            />
           </div>
         </div>
         <Box />

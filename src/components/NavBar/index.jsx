@@ -16,6 +16,7 @@ import {
 } from '@material-ui/core';
 import DrawerComponent from 'components/DrawerComponent';
 import NavigationButton from 'components/NavigationButton';
+import LinkButton from 'components/LinkButton';
 import useStyles from './styles';
 
 function NavBar() {
@@ -62,11 +63,11 @@ function NavBar() {
               <DrawerComponent />
             ) : (
               <div className={classes.navlinks}>
-                <NavigationButton
+                <LinkButton
                   color="primary"
                   label="Register Business"
                   // icon={<InformationIcon />}
-                  route="/register-businiess"
+                  route="/register"
                 />
               </div>
             )}

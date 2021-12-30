@@ -13,7 +13,7 @@ function DirectoryHome() {
   return (
     <>
       <Hero bgImagePath={HeroBG} title={heroTitle} subTitle={heroSubTitle} />
-      <Featured />
+      {/* <Featured /> */}
       <Categories />
     </>
   );
