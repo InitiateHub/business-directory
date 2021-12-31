@@ -23,17 +23,14 @@ const BusinessItem = ({ business }) => {
 
   return (
     <Grid item xs={12} md={6}>
-      {/* <Box className={classes.card}> */}
       <Grid container className={classes.card}>
         <Grid item xs={12} md={4} className={classes.imageContainer}>
-          {/* <Box className={classes.imageContainer}> */}
           <CardMedia
             component="img"
             className={classes.cardImage}
-            image={placeholderImage}
+            image={mainImage || placeholderImage}
             alt="business image"
           />
-          {/* </Box> */}
         </Grid>
         <Grid item container xs={12} md={8}>
           <Box className={classes.textContent}>
@@ -73,8 +70,8 @@ const BusinessItem = ({ business }) => {
   );
 };
 
-// BusinessItem.propTypes = {
-//   business: PropTypes.object.isRequired,
-// };
+BusinessItem.propTypes = {
+  business: PropTypes.object.isRequired,
+};
 
 export default BusinessItem;

@@ -4,6 +4,7 @@ import Hero from 'components/Hero';
 import Featured from 'components/Featured';
 import Categories from 'components/Categories';
 import HeroBG from 'assets/images/home-hero.png';
+import AllBusinesses from 'components/AllBusinesses';
 
 function DirectoryHome() {
   const heroTitle =
@@ -13,8 +14,9 @@ function DirectoryHome() {
   return (
     <>
       <Hero bgImagePath={HeroBG} title={heroTitle} subTitle={heroSubTitle} />
+      <AllBusinesses />
       {/* <Featured /> */}
-      <Categories />
+      {/* <Categories /> */}
     </>
   );
 }
