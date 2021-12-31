@@ -2,11 +2,14 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 
 const useStyles = makeStyles(theme => ({
   content: {
+    // [theme.breakpoints.down('sm')]: {
+    //   padding: theme.spacing(3),
+    // },
+  },
+  main: {
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(3),
     },
-  },
-  main: {
     '& > *': {
       marginBottom: theme.spacing(4),
       '&: last - child': {

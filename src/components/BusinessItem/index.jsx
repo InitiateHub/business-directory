@@ -11,6 +11,7 @@ import { LocationOn, Phone } from '@material-ui/icons';
 import CustomButton from 'components/CustomButton';
 import LinkButton from 'components/LinkButton';
 import PropTypes from 'prop-types';
+import { truncateString } from 'utils';
 import useStyles from './styles';
 
 const BusinessItem = ({ business }) => {
@@ -22,29 +23,42 @@ const BusinessItem = ({ business }) => {
 
   return (
     <Grid item xs={12} md={6}>
-      <Box className={classes.card}>
-        <div className={classes.content}>
-          <Box className={classes.imageContainer}>
-            <CardMedia
-              component="img"
-              className={classes.cardImage}
-              image={mainImage || placeholderImage}
-              alt="business image"
-            />
-          </Box>
-          <div className={classes.textContent}>
-            <Typography component="div" variant="h5">
+      {/* <Box className={classes.card}> */}
+      <Grid container className={classes.card}>
+        <Grid item xs={12} md={4} className={classes.imageContainer}>
+          {/* <Box className={classes.imageContainer}> */}
+          <CardMedia
+            component="img"
+            className={classes.cardImage}
+            image={placeholderImage}
+            alt="business image"
+          />
+          {/* </Box> */}
+        </Grid>
+        <Grid item container xs={12} md={8}>
+          <Box className={classes.textContent}>
+            <Typography component="h1" variant="h6">
               {name}
             </Typography>
-            {/* <Typography variant="subtitle1" component="div">
-              {description}
-            </Typography> */}
+            <Typography variant="subtitle1" component="p">
+              {truncateString(description, 30)}
+            </Typography>
             <div className={classes.info}>
-              <Box display="flex" alignItems="center">
-                <Phone /> {phone.length > 0 && phone[0]}
-              </Box>
-              <Box display="flex" alignItems="center">
-                <LocationOn /> {location}
+              {phone.length > 0 && (
+                <Box
+                  display="flex"
+                  alignItems="center"
+                  className={classes.infoitem}
+                >
+                  <Phone className={classes.icon} /> {phone[0]}
+                </Box>
+              )}
+              <Box
+                display="flex"
+                alignItems="center"
+                className={classes.infoitem}
+              >
+                <LocationOn className={classes.icon} /> {location}
               </Box>
             </div>
             <LinkButton
@@ -52,10 +66,9 @@ const BusinessItem = ({ business }) => {
               label="View Business"
               route={`/business/${business.id}`}
             />
-          </div>
-        </div>
-        <Box />
-      </Box>
+          </Box>
+        </Grid>
+      </Grid>
     </Grid>
   );
 };
