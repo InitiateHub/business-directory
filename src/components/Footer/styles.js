@@ -15,7 +15,10 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: theme.spacing(4.2),
     '& > *': {
       marginBottom: theme.spacing(3.25),
-      '&: last - child': {
+      '&:last-child': {
+        marginBottom: 0,
+      },
+      '&:only-child': {
         marginBottom: 0,
       },
     },

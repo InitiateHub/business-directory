@@ -10,6 +10,9 @@ const useStyles = makeStyles(theme => ({
     '&:last-child': {
       marginRight: 0,
     },
+    '&:only-child': {
+      marginRight: 0,
+    },
 
     '& svg': {
       fontSize: '24px !important',

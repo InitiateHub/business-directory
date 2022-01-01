@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: '#fafafa',
     borderRadius: '10px',
     '&:hover': {
-      backgroundColor: '#F7F1FC',
+      backgroundColor: theme.palette.accent.main,
       transition: theme.transitions.create(['background-color', 'transform'], {
         duration: theme.transitions.duration.standard,
         easing: theme.transitions.easing.easeInOut,
@@ -81,7 +81,11 @@ const useStyles = makeStyles(theme => ({
     '& > *': {
       marginRight: theme.spacing(3),
       marginBottom: theme.spacing(1),
-      '&: last - child': {
+      '&:last-child': {
+        marginRight: 0,
+        marginBottom: 0,
+      },
+      '&:only-child': {
         marginRight: 0,
         marginBottom: 0,
       },
@@ -89,7 +93,7 @@ const useStyles = makeStyles(theme => ({
   },
   infoitem: {
     // marginBottom: theme.spacing(1),
-    // '&: last - child': {
+    // '&:last-child': {
     //   marginBottom: 0,
     // },
   },

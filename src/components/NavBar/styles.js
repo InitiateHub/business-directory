@@ -36,6 +36,9 @@ const useStyles = makeStyles(theme => ({
     // height: 70,
     // marginLeft: theme.spacing(2),
     cursor: 'pointer',
+    '& > *': {
+      textDecoration: 'none',
+    },
   },
   search: {
     position: 'absolute',

@@ -1,13 +1,20 @@
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 const useStyles = makeStyles(theme => ({
+  isLoading: {
+    margin: '0 6.5px',
+    color: theme.palette.action.disabled,
+  },
   button: {
-    width: 'fit-content',
+    // width: 'fit-content',
     height: theme.spacing(5.6),
     marginRight: theme.spacing(0.5),
     padding: theme.spacing(1.5, 2.25),
     fontWeight: 'bold',
     '&:last-child': {
+      marginRight: 0,
+    },
+    '&:only-child': {
       marginRight: 0,
     },
 

@@ -4,24 +4,18 @@ import PropTypes from 'prop-types';
 import SearchBar from 'components/SearchBar';
 import useStyles from './styles';
 
-const Hero = ({ bgImagePath, height, title, subTitle }) => {
-  const classes = useStyles();
-  const styles = {
-    heroContainer: {
-      minHeight: `${height}px`,
-      backgroundImage: `url(${bgImagePath})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      margin: -4,
-      // [theme.breakpoints.down('sm')]: {
-      //   padding: theme.spacing(3),
-      // },
-      padding: 24,
-    },
-  };
+const Hero = ({
+  bgImagePath,
+  height,
+  title,
+  subTitle,
+  hasSearch,
+  contentVerticalAlign,
+}) => {
+  const classes = useStyles({ height, bgImagePath, contentVerticalAlign });
 
   return (
-    <Grid item container style={styles.heroContainer}>
+    <Grid item container className={classes.heroContainer}>
       <Grid item xs={false} sm={2} />
       <Grid
         item
@@ -32,13 +26,17 @@ const Hero = ({ bgImagePath, height, title, subTitle }) => {
         alignItems="center"
       >
         <Box className={classes.box}>
-          <Typography variant="h2" component="h1" className={classes.title}>
-            {title}
-          </Typography>
-          <Typography variant="body1" className={classes.subTitle}>
-            {subTitle}
-          </Typography>
-          <SearchBar />
+          {title && (
+            <Typography variant="h2" component="h1" className={classes.title}>
+              {title}
+            </Typography>
+          )}
+          {subTitle && (
+            <Typography variant="body1" className={classes.subTitle}>
+              {subTitle}
+            </Typography>
+          )}
+          {hasSearch && <SearchBar />}
         </Box>
       </Grid>
       <Grid item xs={false} sm={2} />
@@ -47,13 +45,17 @@ const Hero = ({ bgImagePath, height, title, subTitle }) => {
 };
 
 Hero.propTypes = {
-  bgImagePath: PropTypes.string.isRequired,
+  bgImagePath: PropTypes.string,
   height: PropTypes.number,
   title: PropTypes.string,
   subTitle: PropTypes.string,
+  hasSearch: PropTypes.bool,
+  contentVerticalAlign: PropTypes.string,
 };
 
 Hero.defaultProps = {
+  hasSearch: true,
+  contentVerticalAlign: 'center',
   height: 560,
   title: '',
   subTitle: '',

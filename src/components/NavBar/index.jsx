@@ -9,11 +9,12 @@ import {
   useTheme,
   InputBase,
   useMediaQuery,
-  Link,
   Grid,
   Button,
   Box,
 } from '@material-ui/core';
+import { Link } from 'react-router-dom';
+
 import DrawerComponent from 'components/DrawerComponent';
 import NavigationButton from 'components/NavigationButton';
 import LinkButton from 'components/LinkButton';
@@ -57,7 +58,7 @@ function NavBar() {
             alignItems="center"
           >
             <Typography variant="h5" component="h1" className={classes.logo}>
-              #TheBusinessDirectory
+              <Link to="/">#TheBusinessDirectory</Link>
             </Typography>
             {isMobile ? (
               <DrawerComponent />

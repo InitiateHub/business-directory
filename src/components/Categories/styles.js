@@ -12,7 +12,10 @@ const useStyles = makeStyles(theme => ({
     },
     '& > *': {
       marginBottom: theme.spacing(4),
-      '&: last - child': {
+      '&:last-child': {
+        marginBottom: 0,
+      },
+      '&:only-child': {
         marginBottom: 0,
       },
     },

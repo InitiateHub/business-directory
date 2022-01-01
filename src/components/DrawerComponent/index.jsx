@@ -35,7 +35,7 @@ function DrawerComponent() {
                 color="primary"
                 label="Register Business"
                 // icon={<InformationIcon />}
-                route="/register-businiess"
+                route="/register"
               />
             </ListItemText>
           </ListItem>

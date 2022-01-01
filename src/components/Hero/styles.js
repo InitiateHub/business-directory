@@ -1,32 +1,38 @@
 import makeStyles from '@material-ui/core/styles/makeStyles';
 
 const useStyles = makeStyles(theme => ({
-  // heroContainer: ({ height, bgImagePath }) => ({
-  //   minHeight: `${height}px`,
-  //   backgroundImage: `url(${bgImagePath})`,
-  //   backgroundSize: 'cover',
-  //   backgroundPosition: 'center',
-  //   margin: -4,
+  heroContainer: props => ({
+    minHeight: `${props.height}px`,
+    backgroundImage: `linear-gradient(0deg, #00000099, #00000099),        
+    url(${props.bgImagePath})`,
+    backgroundColor: '#f5f5f5',
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    margin: -4,
 
-  //   [theme.breakpoints.down('sm')]: {
-  //     padding: theme.spacing(3),
-  //   },
-  // }),
-  box: {
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(3),
+    },
+  }),
+  box: props => ({
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: `${props.contentVerticalAlign}`,
     alignItems: 'center',
     height: '100%',
+    width: '100%',
     textAlign: 'center',
     color: theme.palette.common.white,
     '& > *': {
       marginBottom: theme.spacing(4),
-      '&: last - child': {
+      '&:last-child': {
         marginBottom: 0,
       },
+      '&:only-child': {
+        marginBottom: theme.spacing(0),
+      },
     },
-  },
+  }),
   title: {
     // fontSize: '44px',
   },

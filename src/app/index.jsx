@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Box from '@material-ui/core/Box';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
-import { lightTheme, darkTheme, lightBlueTheme } from 'themes';
+import { lightTheme, darkTheme } from 'themes';
 import { initializeAction } from 'store/actions/main';
 import { loadThemeAction } from 'store/actions/theme';
 import Compose from 'hooks/ComposeProvider';
@@ -43,15 +43,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <ThemeProvider
-      theme={
-        theme === 'light'
-          ? lightTheme
-          : theme === 'lightBlue'
-          ? lightBlueTheme
-          : darkTheme
-      }
-    >
+    <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
       <ErrorBoundary>
         <Router>
           <NavBar />
@@ -71,8 +63,8 @@ function App() {
             </Switch>
             {/* </Compose> */}
           </Box>
+          <Footer />
         </Router>
-        <Footer />
       </ErrorBoundary>
     </ThemeProvider>
   );
