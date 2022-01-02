@@ -35,13 +35,13 @@ const BusinessItem = ({ business }) => {
         <Grid item container xs={12} md={8}>
           <Box className={classes.textContent}>
             <Typography component="h1" variant="h6">
-              {name}
+              {name && name}
             </Typography>
             <Typography variant="subtitle1" component="p">
-              {truncateString(description, 30)}
+              {truncateString(description && description, 30)}
             </Typography>
             <div className={classes.info}>
-              {phone.length > 0 && (
+              {phone?.length > 0 && (
                 <Box
                   display="flex"
                   alignItems="center"
@@ -55,13 +55,13 @@ const BusinessItem = ({ business }) => {
                 alignItems="center"
                 className={classes.infoitem}
               >
-                <LocationOn className={classes.icon} /> {location}
+                <LocationOn className={classes.icon} /> {location && location}
               </Box>
             </div>
             <LinkButton
               variant="outlined"
               label="View Business"
-              route={`/business/${business.id}`}
+              route={`/business/${business?.id}`}
             />
           </Box>
         </Grid>

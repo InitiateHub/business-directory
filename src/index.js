@@ -7,11 +7,14 @@ import store from 'store';
 import reportWebVitals from './reportWebVitals';
 
 import './index.css';
+import { ErrorBoundary } from './components/ErrorBoundary';
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <ErrorBoundary>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </ErrorBoundary>,
   document.getElementById('root'),
 );
 

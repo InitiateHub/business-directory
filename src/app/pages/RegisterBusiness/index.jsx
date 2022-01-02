@@ -4,25 +4,56 @@ import Hero from 'components/Hero';
 import CustomFormTextBox from 'components/CustomFormTextBox';
 import CustomButton from 'components/CustomButton';
 import HeroBG from 'assets/images/plantain.png';
+import { useBusinesses } from 'hooks/Context';
 import useStyles from './styles';
 
 function RegisterBusiness() {
   const classes = useStyles();
 
+  const {
+    isLoading,
+    catalogueImages,
+    category,
+    description,
+    email,
+    gpsLocation,
+    latitude,
+    longitude,
+    location,
+    mainImage,
+    name,
+    numberofEmployees,
+    phone,
+    services,
+    website,
+    registerBusiness,
+    setCatalogueImages,
+    setFolderUID,
+    setCategory,
+    setDescription,
+    setEmail,
+    setGpsLocation,
+    setLatitude,
+    setLongitude,
+    setLocation,
+    setMainImage,
+    setName,
+    setNumberOfEmployees,
+    setPhone,
+    setServices,
+    setWebsite,
+  } = useBusinesses();
+
   const subText =
     'Et has minim elitr intellegat. Mea aeterno eleifend antiopam ad, nam no suscipit quaerendum. At nam minimum ponderum. Est audiam animal molestiae te.';
 
-  const [website, setWebsite] = useState('');
-  const [description, setDescription] = useState('');
-  const [location, setLocation] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [category, setCategory] = useState('');
-  const [businessName, setBusinessName] = useState('');
+  const handleClick = () => {
+    registerBusiness();
+  };
 
   // useEffect(() => {
-  //   console.log(fullName);
-  // }, [fullName]);
+  //   console.log(email);
+  // }, [email]);
 
   return (
     <>
@@ -47,13 +78,15 @@ function RegisterBusiness() {
           <Grid container className={classes.content} spacing={3}>
             <Grid item xs={12} sm={6}>
               <CustomFormTextBox
+                isDisabled={isLoading}
                 label="Business Name"
-                value={businessName}
-                handleOnChange={e => setBusinessName(e.target.value)}
+                value={name}
+                handleOnChange={e => setName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <CustomFormTextBox
+                isDisabled={isLoading}
                 label="Description"
                 value={description}
                 handleOnChange={e => setDescription(e.target.value)}
@@ -61,6 +94,7 @@ function RegisterBusiness() {
             </Grid>
             <Grid item xs={12} sm={6}>
               <CustomFormTextBox
+                isDisabled={isLoading}
                 label="Location"
                 value={location}
                 handleOnChange={e => setLocation(e.target.value)}
@@ -68,6 +102,7 @@ function RegisterBusiness() {
             </Grid>
             <Grid item xs={12} sm={6}>
               <CustomFormTextBox
+                isDisabled={isLoading}
                 label="Email"
                 value={email}
                 handleOnChange={e => setEmail(e.target.value)}
@@ -75,6 +110,7 @@ function RegisterBusiness() {
             </Grid>
             <Grid item xs={12} sm={6}>
               <CustomFormTextBox
+                isDisabled={isLoading}
                 label="Phone"
                 value={phone}
                 handleOnChange={e => setPhone(e.target.value)}
@@ -82,23 +118,30 @@ function RegisterBusiness() {
             </Grid>
             <Grid item xs={12} sm={6}>
               <CustomFormTextBox
+                isDisabled={isLoading}
                 label="Website"
                 value={website}
                 handleOnChange={e => setWebsite(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <CustomFormTextBox label="Upload Logo" />
+              <CustomFormTextBox isDisabled={isLoading} label="Upload Logo" />
             </Grid>
             <Grid item xs={12} sm={6}>
               <CustomFormTextBox
+                isDisabled={isLoading}
                 label="Category"
                 value={category}
                 handleOnChange={e => setCategory(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <CustomButton fullWidth label="Submit Business" />
+              <CustomButton
+                fullWidth
+                isLoading={isLoading}
+                label="Submit Business"
+                handleClick={handleClick}
+              />
             </Grid>
           </Grid>
         </Grid>

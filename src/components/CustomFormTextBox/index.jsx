@@ -15,6 +15,7 @@ const CustomFormTextBox = ({
   required,
   value,
   handleOnChange,
+  isDisabled,
 }) => {
   const classes = useStyles();
 
@@ -32,13 +33,13 @@ const CustomFormTextBox = ({
         </FormLabel>
       ) : null}
       <FilledInput
+        disabled={isDisabled}
         className={classes.input}
         fullWidth
         type="text"
         disableUnderline
         value={value}
         onChange={e => handleOnChange(e)}
-        // label="Search"
       />
     </FormControl>
   );

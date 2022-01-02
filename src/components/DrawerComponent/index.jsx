@@ -11,14 +11,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
 import NavigationButton from 'components/NavigationButton';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   link: {
     textDecoration: 'none',
-    color: 'blue',
-    fontSize: '20px',
   },
   icon: {
-    color: 'white',
+    color: theme.palette.primary.main,
   },
 }));
 
@@ -42,7 +40,7 @@ function DrawerComponent() {
         </List>
       </Drawer>
       <IconButton onClick={() => setOpenDrawer(!openDrawer)}>
-        <MenuIcon />
+        <MenuIcon className={classes.icon} />
       </IconButton>
     </>
   );

@@ -1,81 +1,187 @@
-import React from 'react';
+import React, { createContext, useContext, useState, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import mainService from 'services/main.service';
+import { getFirestore } from 'firebase/firestore';
+import firebaseConfig from 'utils/firebase.config';
+import fbStorageService from 'services/firebase.storage.service';
+import { v4 as uuid } from 'uuid';
 
 const createBusiness = (task, type) => ({
   id: task.Id,
   guid: task.GUID,
 });
 
-const BusinessesContext = React.createContext();
+// we create a React Context, for this to be accessible
+// from a component later
+const FirebaseContext = createContext();
 
 const BusinessDirectoryProvider = ({ children }) => {
-  const [isLoadingBusinesses, setIsLoadingBusinesses] = React.useState(false);
-  const [isLoadingBusinessesAssigned, setIsLoadingBusinessesAssigned] =
-    React.useState(false);
+  const dispatch = useDispatch();
 
-  const [tasksCreated, setBusinesses] = React.useState([]);
-  const [tasksNew, setBusinessesNew] = React.useState([]);
-  const [tasksInProgress, setBusinessesInProgress] = React.useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [businesses, setBusinesses] = useState([]);
+  const [business, setBusiness] = useState();
+  const [catalogueImages, setCatalogueImages] = useState([]);
+  const [folderUID, setFolderUID] = React.useState();
+  const [category, setCategory] = React.useState('');
+  const [description, setDescription] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [gpsLocation, setGpsLocation] = React.useState('');
+  const [latitude, setLatitude] = React.useState('');
+  const [longitude, setLongitude] = React.useState('');
+  const [isApproved, setIsApproved] = React.useState(false);
+  const [isFeatured, setIsFeatured] = React.useState(false);
+  const [location, setLocation] = React.useState('');
+  const [mainImage, setMainImage] = React.useState();
+  const [name, setName] = React.useState('');
+  const [numberofEmployees, setNumberOfEmployees] = React.useState();
+  const [phone, setPhone] = React.useState([]);
+  const [services, setServices] = React.useState([]);
+  const [website, setWebsite] = React.useState('');
+  const [id, setId] = React.useState('');
 
-  const updateBusinessAssigned = React.useCallback((old, newPartial) => {
-    const newBusiness = {
-      ...old,
-      ...newPartial,
-    };
-    if (old.status === 'created') {
-      setBusinessesNew(s => s.filter(i => i.id !== old.id));
-    } else if (old.status === 'doing') {
-      setBusinessesInProgress(s => s.filter(i => i.id !== old.id));
+  // const [businesses, isLoading] = useSelector(state => [
+  //   state.main.businesses,
+  //   state.main.isLoading,
+  // ]);
+
+  const clear = () => {
+    setCatalogueImages([]);
+    setFolderUID('');
+    setCategory('');
+    setDescription('');
+    setEmail('');
+    setGpsLocation({});
+    setLatitude('');
+    setLongitude('');
+    setIsApproved(false);
+    setIsFeatured(false);
+    setLocation('');
+    setMainImage('');
+    setName('');
+    setNumberOfEmployees('');
+    setPhone([]);
+    setServices([]);
+    setWebsite('');
+    setId('');
+  };
+
+  async function fetchBusinesses() {
+    setIsLoading(true);
+    const _results = await fbStorageService.getAllApprovedBusinesses();
+    setBusinesses(_results);
+
+    setIsLoading(false);
+  }
+
+  async function fetchBusiness(businessId) {
+    setIsLoading(true);
+    const _result = await fbStorageService.getBusiness(businessId);
+    setBusiness(_result);
+
+    setIsLoading(false);
+  }
+
+  async function registerBusiness() {
+    setIsLoading(true);
+
+    const internalId = uuid();
+
+    if (catalogueImages.length > 0) {
+      setFolderUID(internalId);
+      console.log(folderUID);
+
+      // await apiBriefingsService.createFolderIfNotExists(folderUID);
+
+      // const sendFilesPromise = attachments.map(i =>
+      //   apiBriefingsService.sendFile(i, i.name, folderUID),
+      // );
+
+      // const results = await Promise.allSettled(sendFilesPromise);
+      // const rejected = results
+      //   .filter(result => result.status === 'rejected')
+      //   .map(result => result.reason);
+      // if (rejected.length > 0) {
+      //   console.log(rejected);
+      //   throw new Error(JSON.stringify(rejected));
+      // }
     }
 
-    if (newBusiness.status === 'created') {
-      newBusiness.type = 'new';
-      setBusinessesNew(s => [...s, newBusiness]);
-    } else if (newBusiness.status === 'doing') {
-      newBusiness.type = 'inProgress';
-      setBusinessesInProgress(s => [...s, newBusiness]);
-    }
-  }, []);
+    await fbStorageService.registerBusiness({
+      catalogueImages,
+      category,
+      description,
+      email,
+      gpsLocation: gpsLocation || {
+        Latitude: latitude,
+        Longitude: longitude,
+      },
+      isApproved,
+      isFeatured,
+      location,
+      mainImage,
+      name,
+      numberofEmployees,
+      phone,
+      services,
+      website,
+      id: internalId,
+    });
 
-  const fetchBusinesses = React.useCallback(async user => {
-    try {
-      setIsLoadingBusinesses(true);
-      const { results } = await mainService.getItems('ROCCalendarBusinesses');
-
-      const tasks = results.map(i => createBusiness(i, 'created'));
-
-      const uniques = tasks.reduce((acc, item) => {
-        const founded = acc.find(i => i.groupUID === item.groupUID);
-        if (founded) {
-          founded.group.push(item);
-        } else {
-          acc.push(item);
-        }
-
-        return acc;
-      }, []);
-
-      setBusinesses(uniques);
-    } finally {
-      setIsLoadingBusinesses(false);
-    }
-  }, []);
+    clear();
+    setIsLoading(false);
+    // return data;
+  }
 
   return (
-    <BusinessesContext.Provider
+    <FirebaseContext.Provider
       value={{
-        tasksCreated,
-        tasksNew,
-        tasksInProgress,
-        isLoadingBusinesses,
-        isLoadingBusinessesAssigned,
-        updateBusinessAssigned,
+        isLoading,
+        businesses,
+        business,
+        catalogueImages,
+        category,
+        description,
+        email,
+        gpsLocation,
+        latitude,
+        longitude,
+        isApproved,
+        isFeatured,
+        location,
+        mainImage,
+        name,
+        numberofEmployees,
+        phone,
+        services,
+        website,
+        id,
+        clear,
         fetchBusinesses,
+        fetchBusiness,
+        registerBusiness,
+        setCatalogueImages,
+        setFolderUID,
+        setCategory,
+        setDescription,
+        setEmail,
+        setGpsLocation,
+        setLatitude,
+        setLongitude,
+        setIsApproved,
+        setIsFeatured,
+        setLocation,
+        setMainImage,
+        setName,
+        setNumberOfEmployees,
+        setPhone,
+        setServices,
+        setWebsite,
+        setId,
       }}
     >
       {children}
-    </BusinessesContext.Provider>
+    </FirebaseContext.Provider>
   );
 };
 
@@ -84,7 +190,7 @@ BusinessDirectoryProvider.propTypes = {
 };
 
 const useBusinesses = () => {
-  const context = React.useContext(BusinessesContext);
+  const context = useContext(FirebaseContext);
 
   if (!context) {
     throw new Error(
