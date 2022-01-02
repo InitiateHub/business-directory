@@ -3,13 +3,14 @@ import { useParams } from 'react-router-dom';
 import { Grid, Typography } from '@material-ui/core';
 import Hero from 'components/Hero';
 import { useBusinesses } from 'hooks/Context';
+import useDocumentTitle from 'hooks/useDocumentTitle';
 import useStyles from './styles';
 
 const BusinessDetails = () => {
   const classes = useStyles();
 
   const { businesses, business, setBusiness, fetchBusiness } = useBusinesses();
-
+  useDocumentTitle(`${business?.name ?? 'Details'} | TheBusinessDirectory`);
   const { id } = useParams();
 
   useEffect(() => {

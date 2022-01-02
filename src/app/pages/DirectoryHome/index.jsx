@@ -6,8 +6,10 @@ import Categories from 'components/Categories';
 import HeroBG from 'assets/images/home-hero.png';
 import AllBusinesses from 'components/AllBusinesses';
 import { useBusinesses } from 'hooks/Context';
+import useDocumentTitle from 'hooks/useDocumentTitle';
 
 function DirectoryHome() {
+  useDocumentTitle('Home | TheBusinessDirectory');
   const heroTitle =
     'The fastest way to find businesses, products & services in Ghana';
   const heroSubTitle =

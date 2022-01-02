@@ -5,9 +5,12 @@ import CustomFormTextBox from 'components/CustomFormTextBox';
 import CustomButton from 'components/CustomButton';
 import HeroBG from 'assets/images/plantain.png';
 import { useBusinesses } from 'hooks/Context';
+import useDocumentTitle from 'hooks/useDocumentTitle';
 import useStyles from './styles';
 
 function RegisterBusiness() {
+  useDocumentTitle('Register Business | TheBusinessDirectory');
+
   const classes = useStyles();
 
   const {
