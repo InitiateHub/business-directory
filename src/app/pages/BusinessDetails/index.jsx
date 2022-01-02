@@ -8,28 +8,27 @@ import useStyles from './styles';
 const BusinessDetails = () => {
   const classes = useStyles();
 
-  const { businesses, business, fetchBusiness } = useBusinesses();
+  const { businesses, business, setBusiness, fetchBusiness } = useBusinesses();
 
   const { id } = useParams();
-  const [selectedBusiness, setSelectedBusiness] = useState({});
 
   useEffect(() => {
     if (businesses.length > 0) {
       const biz = businesses?.find(item => item.id === id);
-      console.log('inside', biz);
-      setSelectedBusiness(biz);
+      setBusiness(biz);
     } else {
       fetchBusiness(id);
-      console.log('outside', business);
-      setSelectedBusiness(business);
     }
-  }, [business, id]);
+    // Do not add business, businesses, fetchBusiness as dependencies
+    // aside the already available ones
+    // lest you fall into endless rerenders
+  }, [id, setBusiness]);
 
   return (
     <>
       <Hero
-        title={selectedBusiness?.name}
-        bgImagePath={selectedBusiness?.mainImage}
+        title={business?.name}
+        bgImagePath={business?.mainImage}
         hasSearch={false}
         contentVerticalAlign="center"
       />
@@ -45,18 +44,18 @@ const BusinessDetails = () => {
         >
           <Grid container className={classes.content} spacing={3}>
             <Grid item xs={12} sm={6}>
-              <Typography>{selectedBusiness.category}</Typography>
+              <Typography>{business?.category}</Typography>
             </Grid>
             <Grid item xs={12} sm={12}>
-              {selectedBusiness.phone?.map(item => (
-                <Typography>{item}</Typography>
+              {business?.phone?.map(item => (
+                <Typography key={item}>{item}</Typography>
               ))}
             </Grid>
             <Grid item xs={12} sm={12}>
-              <Typography>{selectedBusiness?.email}</Typography>
+              <Typography>{business?.email}</Typography>
             </Grid>
             <Grid item xs={12} sm={12}>
-              <Typography>{selectedBusiness?.description}</Typography>
+              <Typography>{business?.description}</Typography>
             </Grid>
           </Grid>
         </Grid>

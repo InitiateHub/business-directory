@@ -27,13 +27,11 @@ const db = getFirestore(app);
 
 const getBusiness = async id => {
   let result;
-  console.log('rez', result);
-
   const docRef = doc(db, collectionName, id);
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {
-    console.log('Document data:', docSnap.data());
+    result = docSnap.data();
   } else {
     // console.log('No such document!');
     // TODO: Remove mock data requests

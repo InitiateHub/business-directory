@@ -159,6 +159,7 @@ const BusinessDirectoryProvider = ({ children }) => {
         clear,
         fetchBusinesses,
         fetchBusiness,
+        setBusiness,
         registerBusiness,
         setCatalogueImages,
         setFolderUID,
