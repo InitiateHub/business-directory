@@ -3,7 +3,6 @@ import { Grid, Box, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import SearchBar from 'components/SearchBar';
 import BusinessItem from 'components/BusinessItem';
-import { GetAllBusinesses } from 'services/firebase.storage.service';
 import AllBusinesses from 'assets/mockData';
 import useStyles from './styles';
 
