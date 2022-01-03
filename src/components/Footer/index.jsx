@@ -1,6 +1,6 @@
 import React from 'react';
-import { Grid, Typography, Button, Box } from '@material-ui/core';
-import { Twitter, Facebook, Instagram } from '@material-ui/icons';
+import { Grid, Typography, Button, Box } from '@mui/material';
+import { Twitter, Facebook, Instagram } from '@mui/icons-material';
 import LinkButton from 'components/LinkButton';
 import useStyles from './styles';
 

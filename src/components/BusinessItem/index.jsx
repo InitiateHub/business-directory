@@ -6,8 +6,8 @@ import {
   Typography,
   CardContent,
   CardMedia,
-} from '@material-ui/core';
-import { LocationOn, Phone } from '@material-ui/icons';
+} from '@mui/material';
+import { LocationOn, Phone } from '@mui/icons-material';
 import CustomButton from 'components/CustomButton';
 import LinkButton from 'components/LinkButton';
 import PropTypes from 'prop-types';

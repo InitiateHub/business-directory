@@ -1,9 +1,9 @@
 import { React, useState } from 'react';
-import { Grid, Box, Typography } from '@material-ui/core';
+import { Grid, Box, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import SearchBar from 'components/SearchBar';
 import BusinessItem from 'components/BusinessItem';
-import AllBusinesses from 'assets/mockData';
+import AllBusinesses from 'assets/mockData/allBusinessesData';
 import useStyles from './styles';
 
 const Categories = () => {

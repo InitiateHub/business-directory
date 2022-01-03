@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@mui/material';
 import Hero from 'components/Hero';
 import { useBusinesses } from 'hooks/Context';
 import useDocumentTitle from 'hooks/useDocumentTitle';

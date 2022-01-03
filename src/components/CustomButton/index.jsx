@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, CircularProgress } from '@material-ui/core';
+import { Button, CircularProgress } from '@mui/material';
 import useStyles from './styles';
 
 function CustomButton(props) {
@@ -33,7 +33,7 @@ function CustomButton(props) {
           startIcon
         )
       }
-      disabled={isLoading ?? disabled}
+      disabled={isLoading || disabled}
       endIcon={endIcon}
       variant={variant}
       aria-label="custom-button"

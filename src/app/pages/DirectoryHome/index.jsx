@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Grid } from '@mui/material';
 import Hero from 'components/Hero';
 import Featured from 'components/Featured';
 import Categories from 'components/Categories';

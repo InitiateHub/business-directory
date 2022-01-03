@@ -1,5 +1,5 @@
 import { React, useState } from 'react';
-import { Grid, Box, Typography } from '@material-ui/core';
+import { Grid, Box, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import BusinessItem from 'components/BusinessItem';
 import { useBusinesses } from 'hooks/Context';

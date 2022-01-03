@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useCallback,
+} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { getFirestore } from 'firebase/firestore';
@@ -22,23 +28,46 @@ const BusinessDirectoryProvider = ({ children }) => {
   const [businesses, setBusinesses] = useState([]);
   const [business, setBusiness] = useState();
   const [catalogueImages, setCatalogueImages] = useState([]);
-  const [folderUID, setFolderUID] = React.useState();
-  const [category, setCategory] = React.useState('');
-  const [description, setDescription] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [gpsLocation, setGpsLocation] = React.useState('');
-  const [latitude, setLatitude] = React.useState('');
-  const [longitude, setLongitude] = React.useState('');
-  const [isApproved, setIsApproved] = React.useState(false);
-  const [isFeatured, setIsFeatured] = React.useState(false);
-  const [location, setLocation] = React.useState('');
-  const [mainImage, setMainImage] = React.useState();
-  const [name, setName] = React.useState('');
-  const [numberofEmployees, setNumberOfEmployees] = React.useState();
-  const [phone, setPhone] = React.useState([]);
-  const [services, setServices] = React.useState([]);
-  const [website, setWebsite] = React.useState('');
-  const [id, setId] = React.useState('');
+  const [folderUID, setFolderUID] = useState();
+  const [category, setCategory] = useState('');
+  const [description, setDescription] = useState('');
+  const [email, setEmail] = useState('');
+  const [gpsLocation, setGpsLocation] = useState('');
+  const [latitude, setLatitude] = useState('');
+  const [longitude, setLongitude] = useState('');
+  const [isApproved, setIsApproved] = useState(false);
+  const [isFeatured, setIsFeatured] = useState(false);
+  const [location, setLocation] = useState('');
+  const [mainImage, setMainImage] = useState();
+  const [name, setName] = useState('');
+  const [numberofEmployees, setNumberOfEmployees] = useState('');
+  const [phone, setPhone] = useState([]);
+  const [services, setServices] = useState([]);
+  const [website, setWebsite] = useState('');
+  const [id, setId] = useState('');
+  const [isRegisterFormValid, setIsRegisterFormValid] = useState(false);
+
+  useEffect(() => {
+    setIsRegisterFormValid(
+      !!(
+        category.length &&
+        description.length &&
+        location.length &&
+        name.length &&
+        phone.length &&
+        services.length &&
+        numberofEmployees.length
+      ),
+    );
+  }, [
+    category.length,
+    description.length,
+    location.length,
+    name.length,
+    numberofEmployees.length,
+    phone.length,
+    services.length,
+  ]);
 
   // const [businesses, isLoading] = useSelector(state => [
   //   state.main.businesses,
@@ -156,6 +185,7 @@ const BusinessDirectoryProvider = ({ children }) => {
         services,
         website,
         id,
+        isRegisterFormValid,
         clear,
         fetchBusinesses,
         fetchBusiness,

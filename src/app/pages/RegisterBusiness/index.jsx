@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography } from '@mui/material';
 import Hero from 'components/Hero';
 import CustomFormTextBox from 'components/CustomFormTextBox';
 import CustomButton from 'components/CustomButton';
 import HeroBG from 'assets/images/plantain.png';
 import { useBusinesses } from 'hooks/Context';
 import useDocumentTitle from 'hooks/useDocumentTitle';
+import DataItemPicker from 'components/DataItemPicker';
 import useStyles from './styles';
 
 function RegisterBusiness() {
@@ -30,6 +31,7 @@ function RegisterBusiness() {
     services,
     website,
     registerBusiness,
+    isRegisterFormValid,
     setCatalogueImages,
     setFolderUID,
     setCategory,
@@ -45,6 +47,8 @@ function RegisterBusiness() {
     setPhone,
     setServices,
     setWebsite,
+    getServices,
+    getCategories,
   } = useBusinesses();
 
   const subText =
@@ -137,12 +141,14 @@ function RegisterBusiness() {
                 value={category}
                 handleOnChange={e => setCategory(e.target.value)}
               />
+              <DataItemPicker />
             </Grid>
             <Grid item xs={12} sm={6}>
               <CustomButton
                 fullWidth
                 isLoading={isLoading}
                 label="Submit Business"
+                disabled={!isRegisterFormValid}
                 handleClick={handleClick}
               />
             </Grid>

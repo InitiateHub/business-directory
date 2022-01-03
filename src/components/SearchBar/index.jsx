@@ -5,8 +5,9 @@ import {
   FilledInput,
   InputAdornment,
   FormControl,
-} from '@material-ui/core';
-import { Search } from '@material-ui/icons';
+  Input,
+} from '@mui/material';
+import { Search } from '@mui/icons-material';
 import CustomButton from 'components/CustomButton';
 import useStyles from './styles';
 
@@ -14,8 +15,7 @@ function SearchBar() {
   const classes = useStyles();
   return (
     <FormControl variant="filled" hiddenLabel className={classes.formControl}>
-      <FilledInput
-        id=""
+      <Input
         className={classes.search}
         fullWidth
         type="text"

@@ -10,7 +10,7 @@ import {
   doc,
   serverTimestamp,
 } from 'firebase/firestore';
-import MockData from 'assets/mockData';
+import MockData from 'assets/mockData/allBusinessesData';
 import { initializeApp, getApps } from 'firebase/app';
 import firebaseConfig from '../utils/firebase.config';
 

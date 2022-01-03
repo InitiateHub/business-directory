@@ -1,4 +1,4 @@
-const AllBusinessesData = [
+export default [
   {
     catalogueImages: [
       'http://dummyimage.com/x.png/ff4444/ffffff',
@@ -2673,4 +2673,3 @@ const AllBusinessesData = [
     id: '3db512fb-c587-4a33-a133-a42f19171720',
   },
 ];
-export default AllBusinessesData;

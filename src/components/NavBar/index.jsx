@@ -12,7 +12,7 @@ import {
   Grid,
   Button,
   Box,
-} from '@material-ui/core';
+} from '@mui/material';
 import { Link } from 'react-router-dom';
 
 import DrawerComponent from 'components/DrawerComponent';

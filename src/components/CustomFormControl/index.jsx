@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormControl, FormLabel } from '@material-ui/core';
+import { FormControl, FormLabel } from '@mui/material';
 import { useStyles } from './styles';
 
 const CustomFormControl = ({
