@@ -5,6 +5,7 @@ import {
   FormLabel,
   FilledInput,
   Typography,
+  OutlinedInput,
 } from '@mui/material';
 import { useStyles } from './styles';
 
@@ -16,12 +17,14 @@ const CustomFormTextBox = ({
   value,
   handleOnChange,
   isDisabled,
+  endAdornment,
+  startAdornment,
 }) => {
   const classes = useStyles();
 
   return (
     <FormControl
-      variant="filled"
+      variant="outlined"
       className={`${classes.formControl} ${className}`}
     >
       {label ? (
@@ -32,14 +35,16 @@ const CustomFormTextBox = ({
           {label}
         </FormLabel>
       ) : null}
-      <FilledInput
+      <OutlinedInput
         disabled={isDisabled}
         className={classes.input}
         fullWidth
         type="text"
-        disableUnderline
+        // disableUnderline
         value={value}
         onChange={e => handleOnChange(e)}
+        endAdornment={endAdornment}
+        startAdornment={startAdornment}
       />
     </FormControl>
   );

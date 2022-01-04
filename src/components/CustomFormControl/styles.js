@@ -1,6 +1,9 @@
 import { makeStyles } from '@mui/styles';
 
 export const useStyles = makeStyles(theme => ({
+  label: {
+    color: '#111111',
+  },
   required: {
     '&::after': {
       content: "'*'",
@@ -10,7 +13,8 @@ export const useStyles = makeStyles(theme => ({
     },
   },
   formControl: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(2.5),
+    width: '100%',
+    // marginTop: theme.spacing(2),
+    // marginBottom: theme.spacing(2.5),
   },
 }));

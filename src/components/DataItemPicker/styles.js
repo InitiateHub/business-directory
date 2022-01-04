@@ -13,21 +13,30 @@ export const useStyles = makeStyles(theme => ({
     },
   },
   formControl: {
-    width: '100%',
-    // marginTop: theme.spacing(2),
+    // marginTop: theme.spacing(1),
     // marginBottom: theme.spacing(2.5),
+    width: '100%',
   },
   input: {
     width: '100%',
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2.5),
+    // padding: theme.spacing(1, 1),
+    // height: theme.spacing(10.4),
+    // [theme.breakpoints.up('sm')]: {
+    //   padding: theme.spacing(4.2, 7.5),
+    // },
+    // [theme.breakpoints.down('sm')]: {
+    //   padding: theme.spacing(4.2, 2.5),
+    // },
     borderRadius: 10,
     backgroundColor: theme.palette.common.white,
     boxSizing: 'border-box',
     color: '#4D4D4D',
     transition: theme.transitions.create('width'),
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2.5),
+
     '& > input': {
-      // padding: theme.spacing(2, 2),
+      padding: theme.spacing(2, 2),
       '&:focus': {
         backgroundColor: theme.palette.common.white,
         color: theme.palette.primary.main,

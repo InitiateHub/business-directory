@@ -16,7 +16,10 @@ const CustomFormControl = ({
   return (
     <FormControl className={`${classes.formControl} ${className}`} {...rest}>
       {label ? (
-        <FormLabel htmlFor={id} className={required ? classes.required : null}>
+        <FormLabel
+          htmlFor={id}
+          className={`${required ? classes.required : null} ${classes.label}`}
+        >
           {label}
         </FormLabel>
       ) : null}

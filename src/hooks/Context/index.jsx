@@ -10,7 +10,15 @@ import PropTypes from 'prop-types';
 import { getFirestore } from 'firebase/firestore';
 import firebaseConfig from 'utils/firebase.config';
 import fbStorageService from 'services/firebase.storage.service';
+import {
+  getServices,
+  getCategories,
+  getService,
+  getCategory,
+} from 'services/main.service';
 import { v4 as uuid } from 'uuid';
+import config from 'utils/config';
+import storageService from 'services/storage.service';
 
 const createBusiness = (task, type) => ({
   id: task.Id,
@@ -41,32 +49,35 @@ const BusinessDirectoryProvider = ({ children }) => {
   const [mainImage, setMainImage] = useState();
   const [name, setName] = useState('');
   const [numberofEmployees, setNumberOfEmployees] = useState('');
-  const [phone, setPhone] = useState([]);
+  const [phones, setPhones] = useState([]);
   const [services, setServices] = useState([]);
   const [website, setWebsite] = useState('');
   const [id, setId] = useState('');
   const [isRegisterFormValid, setIsRegisterFormValid] = useState(false);
+  const [theme, setTheme] = useState();
+  const [selectedServices, setSelectedServices] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState();
 
   useEffect(() => {
     setIsRegisterFormValid(
       !!(
-        category.length &&
-        description.length &&
-        location.length &&
-        name.length &&
-        phone.length &&
-        services.length &&
-        numberofEmployees.length
+        category?.length &&
+        description?.length &&
+        location?.length &&
+        name?.length &&
+        phones?.length &&
+        services?.length &&
+        numberofEmployees?.length
       ),
     );
   }, [
-    category.length,
-    description.length,
-    location.length,
-    name.length,
-    numberofEmployees.length,
-    phone.length,
-    services.length,
+    category?.length,
+    description?.length,
+    location?.length,
+    name?.length,
+    numberofEmployees?.length,
+    phones?.length,
+    services?.length,
   ]);
 
   // const [businesses, isLoading] = useSelector(state => [
@@ -89,11 +100,40 @@ const BusinessDirectoryProvider = ({ children }) => {
     setMainImage('');
     setName('');
     setNumberOfEmployees('');
-    setPhone([]);
+    setPhones([]);
     setServices([]);
     setWebsite('');
     setId('');
+    selectedCategory();
+    selectedServices([]);
   };
+
+  function getBusinessCategories() {
+    return getCategories();
+  }
+
+  function getBusinessServices() {
+    return getServices();
+  }
+
+  function getBusinessCategory(item) {
+    return getCategory(item);
+  }
+
+  function getBusinessService(item) {
+    return getService(item);
+  }
+
+  function getTheme() {
+    const value = storageService.getItem(config.themeKey);
+    if (value) {
+      setTheme(value);
+    }
+  }
+
+  function changeTheme(newTheme) {
+    storageService.setItem(config.themeKey, theme);
+  }
 
   async function fetchBusinesses() {
     setIsLoading(true);
@@ -151,7 +191,7 @@ const BusinessDirectoryProvider = ({ children }) => {
       mainImage,
       name,
       numberofEmployees,
-      phone,
+      phones,
       services,
       website,
       id: internalId,
@@ -181,11 +221,14 @@ const BusinessDirectoryProvider = ({ children }) => {
         mainImage,
         name,
         numberofEmployees,
-        phone,
+        phones,
         services,
         website,
         id,
         isRegisterFormValid,
+        theme,
+        selectedCategory,
+        selectedServices,
         clear,
         fetchBusinesses,
         fetchBusiness,
@@ -205,10 +248,17 @@ const BusinessDirectoryProvider = ({ children }) => {
         setMainImage,
         setName,
         setNumberOfEmployees,
-        setPhone,
+        setPhones,
         setServices,
         setWebsite,
         setId,
+        getTheme,
+        getBusinessCategories,
+        getBusinessServices,
+        getBusinessCategory,
+        getBusinessService,
+        setSelectedCategory,
+        setSelectedServices,
       }}
     >
       {children}

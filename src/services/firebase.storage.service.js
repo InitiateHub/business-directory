@@ -10,7 +10,7 @@ import {
   doc,
   serverTimestamp,
 } from 'firebase/firestore';
-import MockData from 'assets/mockData/allBusinessesData';
+import { allBusinesses } from 'assets/mockData';
 import { initializeApp, getApps } from 'firebase/app';
 import firebaseConfig from '../utils/firebase.config';
 
@@ -35,7 +35,7 @@ const getBusiness = async id => {
   } else {
     // console.log('No such document!');
     // TODO: Remove mock data requests
-    result = MockData.find(item => item.id === id);
+    result = allBusinesses.find(item => item.id === id);
   }
 
   return result;
@@ -45,7 +45,7 @@ const getAllApprovedBusinesses = async () => {
   const _results = [];
 
   // TODO: Remove MockData Queries
-  MockData.forEach(item => {
+  allBusinesses.forEach(item => {
     if (item.isApproved)
       _results.push({
         ...item,
@@ -84,7 +84,7 @@ const registerBusiness = async data => {
     mainImage,
     name,
     numberofEmployees,
-    phone,
+    phones,
     services,
     website,
     id,
@@ -102,7 +102,7 @@ const registerBusiness = async data => {
     // mainImage,
     name,
     // numberofEmployees,
-    // phone,
+    // phones,
     // services,
     website,
     id,

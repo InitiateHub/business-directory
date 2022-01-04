@@ -11,26 +11,43 @@ import Footer from 'components/Footer';
 import NavBar from 'components/NavBar';
 import { BusinessDirectoryProvider, useBusinesses } from 'hooks/Context';
 import { StyledEngineProvider } from '@mui/material/styles';
+import config from 'utils/config';
+import storageService from 'services/storage.service';
+import ReactGA from 'react-ga';
 import DirectoryHome from './pages/DirectoryHome';
 import RegisterBusiness from './pages/RegisterBusiness';
 import BusinessDetails from './pages/BusinessDetails';
 
+ReactGA.initialize('G-Y0J7S9KCCD');
+ReactGA.pageview(window.location.pathname + window.location.search);
+
 function App() {
   const dispatch = useDispatch();
 
-  // const { fetchBusinesses } = useBusinesses();
+  // const { theme, getTheme } = useBusinesses();
 
-  const [theme] = useSelector(state => [state.theme.theme]);
+  // const [theme] = useSelector(state => [state.theme.theme]);
+  const theme = storageService.getItem(config.themeKey);
 
   useEffect(() => {
-    dispatch(loadThemeAction());
+    // dispatch(loadThemeAction());
     // fetchBusinesses();
-    dispatch(initializeAction());
+    // dispatch(initializeAction());
   }, [dispatch]);
 
   return (
     <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+      <ThemeProvider
+        theme={
+          theme
+            ? theme === 'light'
+              ? lightTheme
+              : theme === 'dark'
+              ? darkTheme
+              : lightTheme
+            : lightTheme
+        }
+      >
         <Router>
           <Compose components={[BusinessDirectoryProvider]}>
             <NavBar />
@@ -47,10 +64,10 @@ function App() {
                 </Route>
               </Switch>
             </Box>
-            <Footer />{' '}
+            <Footer />
           </Compose>
         </Router>
-      </ThemeProvider>{' '}
+      </ThemeProvider>
     </StyledEngineProvider>
   );
 }

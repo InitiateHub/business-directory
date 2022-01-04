@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Typography } from '@mui/material';
+import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
 import Hero from 'components/Hero';
+import CustomFormControl from 'components/CustomFormControl';
 import CustomFormTextBox from 'components/CustomFormTextBox';
 import CustomButton from 'components/CustomButton';
 import HeroBG from 'assets/images/plantain.png';
@@ -8,6 +10,8 @@ import { useBusinesses } from 'hooks/Context';
 import useDocumentTitle from 'hooks/useDocumentTitle';
 import DataItemPicker from 'components/DataItemPicker';
 import useStyles from './styles';
+
+const filter = createFilterOptions();
 
 function RegisterBusiness() {
   useDocumentTitle('Register Business | TheBusinessDirectory');
@@ -27,7 +31,7 @@ function RegisterBusiness() {
     mainImage,
     name,
     numberofEmployees,
-    phone,
+    phones,
     services,
     website,
     registerBusiness,
@@ -44,11 +48,14 @@ function RegisterBusiness() {
     setMainImage,
     setName,
     setNumberOfEmployees,
-    setPhone,
-    setServices,
+    setPhones,
     setWebsite,
-    getServices,
-    getCategories,
+    getBusinessCategories,
+    getBusinessCategory,
+    getBusinessServices,
+    getBusinessService,
+    setSelectedCategory,
+    setSelectedServices,
   } = useBusinesses();
 
   const subText =
@@ -56,6 +63,19 @@ function RegisterBusiness() {
 
   const handleClick = () => {
     registerBusiness();
+  };
+
+  const filterOptions = (options, params) => {
+    const filtered = filter(options, params);
+
+    const { inputValue } = params;
+    // Suggest the creation of a new value
+    const isExisting = options.some(option => inputValue === option.value);
+    if (inputValue !== '' && !isExisting) {
+      filtered.push(inputValue);
+    }
+
+    return filtered;
   };
 
   // useEffect(() => {
@@ -116,12 +136,23 @@ function RegisterBusiness() {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <CustomFormTextBox
-                isDisabled={isLoading}
-                label="Phone"
-                value={phone}
-                handleOnChange={e => setPhone(e.target.value)}
-              />
+              <CustomFormControl label="Phones">
+                <DataItemPicker
+                  multiple
+                  freeSolo
+                  selectOnFocus
+                  clearOnBlur
+                  loading={false}
+                  loadingText=""
+                  filterOptions={(options, params) =>
+                    filterOptions(options, params)
+                  }
+                  isDropdown={false}
+                  onChange={x => {
+                    setPhones(x);
+                  }}
+                />
+              </CustomFormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
               <CustomFormTextBox
@@ -135,22 +166,34 @@ function RegisterBusiness() {
               <CustomFormTextBox isDisabled={isLoading} label="Upload Logo" />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <CustomFormTextBox
-                isDisabled={isLoading}
-                label="Category"
-                value={category}
-                handleOnChange={e => setCategory(e.target.value)}
-              />
-              <DataItemPicker />
+              <CustomFormControl label="Category">
+                <DataItemPicker
+                  onChange={x => setSelectedCategory(x)}
+                  initialOptions={getBusinessCategories}
+                  handleGetData={x => getBusinessCategory(x)}
+                />
+              </CustomFormControl>
             </Grid>
             <Grid item xs={12} sm={6}>
-              <CustomButton
-                fullWidth
-                isLoading={isLoading}
-                label="Submit Business"
-                disabled={!isRegisterFormValid}
-                handleClick={handleClick}
-              />
+              <CustomFormControl label="Services">
+                <DataItemPicker
+                  multiple
+                  onChange={x => setSelectedServices(x)}
+                  initialOptions={getBusinessServices}
+                  handleGetData={x => getBusinessServices(x)}
+                />
+              </CustomFormControl>
+            </Grid>
+            <Grid item container>
+              <Grid item xs={12} sm={6}>
+                <CustomButton
+                  fullWidth
+                  isLoading={isLoading}
+                  label="Submit Business"
+                  disabled={!isRegisterFormValid}
+                  handleClick={handleClick}
+                />
+              </Grid>
             </Grid>
           </Grid>
         </Grid>

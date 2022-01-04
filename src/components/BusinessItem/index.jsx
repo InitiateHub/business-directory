@@ -17,7 +17,7 @@ import useStyles from './styles';
 const BusinessItem = ({ business }) => {
   const classes = useStyles();
 
-  const { name, description, mainImage, phone, location } = business;
+  const { name, description, mainImage, phones, location } = business;
   const placeholderImage = 'https://via.placeholder.com/150';
   // console.log(business);
 
@@ -41,13 +41,13 @@ const BusinessItem = ({ business }) => {
               {truncateString(description && description, 30)}
             </Typography>
             <div className={classes.info}>
-              {phone?.length > 0 && (
+              {phones?.length > 0 && (
                 <Box
                   display="flex"
                   alignItems="center"
                   className={classes.infoitem}
                 >
-                  <Phone className={classes.icon} /> {phone[0]}
+                  <Phone className={classes.icon} /> {phones[0]}
                 </Box>
               )}
               <Box

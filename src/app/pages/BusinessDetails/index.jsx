@@ -48,7 +48,7 @@ const BusinessDetails = () => {
               <Typography>{business?.category}</Typography>
             </Grid>
             <Grid item xs={12} sm={12}>
-              {business?.phone?.map(item => (
+              {business?.phones?.map(item => (
                 <Typography key={item}>{item}</Typography>
               ))}
             </Grid>
