@@ -7,7 +7,7 @@ import { useBusinesses } from 'hooks/Context';
 import useStyles from './styles';
 
 function SearchBar() {
-  const { businesses, fetchBusinesses, searchResults, setSearchResults } =
+  const { businesses, fetchBusinesses, searchResults, performSearch } =
     useBusinesses();
 
   const classes = useStyles();
@@ -25,35 +25,14 @@ function SearchBar() {
   useEffect(() => {
     // const currentParams = Object.fromEntries([...searchParams]);
 
-    performSearch();
-
-    console.log('res', searchResults);
-
+    performSearch(value);
     // console.log(JSON.stringify(currentParams)); // get new values onchange
   }, [businesses, searchParams]);
-
-  const performSearch = () => {
-    const lowerValue = value?.toLowerCase();
-    if (businesses) {
-      const nameRes = businesses.filter(e =>
-        e.name.toLowerCase().includes(lowerValue),
-      );
-      const descRes = businesses.filter(e =>
-        e.description.toLowerCase().includes(lowerValue),
-      );
-      const locRes = businesses.filter(e =>
-        e.location.toLowerCase().includes(lowerValue),
-      );
-      const combinedRes = [...nameRes, ...descRes, ...locRes];
-      const newRes = Array.from(new Set(combinedRes));
-      setSearchResults(newRes);
-    }
-  };
 
   const handleKeyUp = e => {
     if (e.key === 'Enter') {
       navigate(`/search?q=${value}`);
-      performSearch();
+      performSearch(value);
     }
   };
 

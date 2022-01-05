@@ -7,10 +7,13 @@ import React, {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getFirestore } from 'firebase/firestore';
-import firebaseConfig from 'utils/firebase.config';
 import fbStorageService from 'services/firebase.storage.service';
-import { getCategories, getCategory } from 'services/main.service';
+import {
+  getProductsOrServices,
+  getCategories,
+  getService,
+  getCategory,
+} from 'services/main.service';
 import { v4 as uuid } from 'uuid';
 import config from 'utils/config';
 import storageService from 'services/storage.service';
@@ -32,48 +35,69 @@ const BusinessDirectoryProvider = ({ children }) => {
   const [business, setBusiness] = useState();
   const [catalogueImages, setCatalogueImages] = useState([]);
   const [folderUID, setFolderUID] = useState();
-  const [category, setCategory] = useState('');
-  const [description, setDescription] = useState('');
-  const [email, setEmail] = useState('');
-  const [gpsLocation, setGpsLocation] = useState('');
+  const [businessDescription, setBusinessDescription] = useState('');
+  const [businessEmail, setBusinessEmail] = useState('');
+  const [businessGpsLocation, setBusinessGpsLocation] = useState('');
   const [latitude, setLatitude] = useState('');
   const [longitude, setLongitude] = useState('');
-  const [isApproved, setIsApproved] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
   const [isFeatured, setIsFeatured] = useState(false);
-  const [location, setLocation] = useState('');
-  const [mainImage, setMainImage] = useState();
-  const [name, setName] = useState('');
+  const [businessPhysicalAddress, setBusinessPhysicalAddress] = useState('');
+  const [businessMainImage, setBusinessMainImage] = useState();
+  const [businessName, setBusinessName] = useState('');
   const [numberofEmployees, setNumberOfEmployees] = useState('');
-  const [phones, setPhones] = useState([]);
-  const [services, setCategories] = useState([]);
-  const [website, setWebsite] = useState('');
+  const [businessPhones, setBusinessPhones] = useState([]);
+  const [businessWebsite, setBusinessWebsite] = useState('');
   const [id, setId] = useState('');
   const [isRegisterFormValid, setIsRegisterFormValid] = useState(false);
   const [theme, setTheme] = useState();
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState();
+  const [selectedBusinessCategories, setSelectedBusinessCategories] = useState(
+    [],
+  );
   const [searchResults, setSearchResults] = useState([]);
+  const [businessManagerName, setBusinessManagerName] = useState('');
+  const [businessEstablishmentYear, setBusinessEstablishmentYear] =
+    useState('');
+  const [businessProductsOrServices, setBusinessProductsOrServices] = useState(
+    [],
+  );
+  const [firstName, setFirstName] = useState([]);
+  const [lastName, setLastName] = useState([]);
+  const [personalEmail, setPersonalEmail] = useState([]);
+  const [personalPhones, setPersonalPhones] = useState([]);
 
   useEffect(() => {
     setIsRegisterFormValid(
       !!(
-        category?.length &&
-        description?.length &&
-        location?.length &&
-        name?.length &&
-        phones?.length &&
-        services?.length &&
-        numberofEmployees?.length
+        firstName?.length &&
+        lastName?.length &&
+        personalEmail?.length &&
+        personalPhones?.length &&
+        selectedBusinessCategories?.length &&
+        businessProductsOrServices?.length &&
+        businessDescription?.length &&
+        businessPhysicalAddress?.length &&
+        businessName?.length &&
+        businessPhones?.length &&
+        numberofEmployees?.length &&
+        businessManagerName?.length &&
+        businessEstablishmentYear?.length
       ),
     );
   }, [
-    category?.length,
-    description?.length,
-    location?.length,
-    name?.length,
+    businessDescription?.length,
+    businessEstablishmentYear?.length,
+    businessManagerName?.length,
+    businessName?.length,
+    businessPhones?.length,
+    businessPhysicalAddress?.length,
+    businessProductsOrServices?.length,
+    firstName?.length,
+    lastName?.length,
     numberofEmployees?.length,
-    phones?.length,
-    services?.length,
+    personalEmail?.length,
+    personalPhones?.length,
+    selectedBusinessCategories?.length,
   ]);
 
   // const [businesses, isLoading] = useSelector(state => [
@@ -82,26 +106,45 @@ const BusinessDirectoryProvider = ({ children }) => {
   // ]);
 
   const clear = () => {
-    setCatalogueImages([]);
+    setFirstName('');
+    setLastName('');
+    setPersonalEmail('');
+    setPersonalPhones([]);
     setFolderUID('');
-    setCategory('');
-    setDescription('');
-    setEmail('');
-    setGpsLocation({});
-    setLatitude('');
-    setLongitude('');
-    setIsApproved(false);
+    setBusinessDescription('');
+    setBusinessEmail('');
+    setIsVerified(false);
     setIsFeatured(false);
-    setLocation('');
-    setMainImage('');
-    setName('');
+    setBusinessPhysicalAddress('');
+    setBusinessMainImage('');
+    setBusinessName('');
     setNumberOfEmployees('');
-    setPhones([]);
-    setCategories([]);
-    setWebsite('');
+    setBusinessPhones([]);
+    setSelectedBusinessCategories([]);
+    setBusinessWebsite('');
     setId('');
-    selectedCategory();
-    selectedCategories([]);
+    selectedBusinessCategories([]);
+    setBusinessManagerName('');
+    setBusinessProductsOrServices([]);
+  };
+
+  // TODO: Rewrite this search function
+  const performSearch = value => {
+    const lowerValue = value?.toLowerCase();
+    if (businesses) {
+      const nameRes = businesses.filter(e =>
+        e.name.toLowerCase().includes(lowerValue),
+      );
+      const descRes = businesses.filter(e =>
+        e.description.toLowerCase().includes(lowerValue),
+      );
+      const locRes = businesses.filter(e =>
+        e.location.toLowerCase().includes(lowerValue),
+      );
+      const combinedRes = [...nameRes, ...descRes, ...locRes];
+      const newRes = Array.from(new Set(combinedRes));
+      setSearchResults(newRes);
+    }
   };
 
   function getBusinessCategories() {
@@ -110,6 +153,14 @@ const BusinessDirectoryProvider = ({ children }) => {
 
   function getBusinessCategory(item) {
     return getCategory(item);
+  }
+
+  function getBusinessProductsOrServices() {
+    return getProductsOrServices();
+  }
+
+  function getBusinessProductsOrService(item) {
+    return getService(item);
   }
 
   function getTheme() {
@@ -166,22 +217,22 @@ const BusinessDirectoryProvider = ({ children }) => {
 
     await fbStorageService.registerBusiness({
       catalogueImages,
-      category,
-      description,
-      email,
-      gpsLocation: gpsLocation || {
+      businessDescription,
+      businessEmail,
+      businessGpsLocation: businessGpsLocation || {
         Latitude: latitude,
         Longitude: longitude,
       },
-      isApproved,
+      isVerified,
       isFeatured,
-      location,
-      mainImage,
-      name,
+      businessPhysicalAddress,
+      businessMainImage,
+      businessName,
       numberofEmployees,
-      phones,
-      services,
-      website,
+      businessPhones,
+      businessProductsOrServices,
+      selectedBusinessCategories,
+      businessWebsite,
       id: internalId,
     });
 
@@ -197,55 +248,67 @@ const BusinessDirectoryProvider = ({ children }) => {
         businesses,
         business,
         catalogueImages,
-        category,
-        description,
-        email,
-        gpsLocation,
+        businessDescription,
+        businessEmail,
+        businessGpsLocation,
         latitude,
         longitude,
-        isApproved,
+        isVerified,
         isFeatured,
-        location,
-        mainImage,
-        name,
+        businessPhysicalAddress,
+        businessMainImage,
+        businessPhones,
         numberofEmployees,
-        phones,
-        services,
-        website,
+        businessProductsOrServices,
+        businessWebsite,
         id,
         isRegisterFormValid,
         theme,
-        selectedCategory,
-        selectedCategories,
+        selectedBusinessCategories,
         searchResults,
+        firstName,
+        lastName,
+        personalEmail,
+        personalPhones,
+        businessName,
+        businessManagerName,
+
+        registerBusiness,
         setSearchResults,
         clear,
         fetchBusinesses,
         fetchBusiness,
         setBusiness,
-        registerBusiness,
         setCatalogueImages,
         setFolderUID,
-        setCategory,
-        setDescription,
-        setEmail,
-        setGpsLocation,
+        setBusinessGpsLocation,
+        setBusinessProductsOrServices,
         setLatitude,
         setLongitude,
-        setIsApproved,
+        setIsVerified,
         setIsFeatured,
-        setLocation,
-        setMainImage,
-        setName,
         setNumberOfEmployees,
-        setPhones,
-        setCategories,
-        setWebsite,
+        setSelectedBusinessCategories,
         setId,
         getTheme,
         getBusinessCategories,
         getBusinessCategory,
-        setSelectedCategories,
+        setFirstName,
+        setLastName,
+        setPersonalEmail,
+        setPersonalPhones,
+        setBusinessDescription,
+        setBusinessEmail,
+        setBusinessPhysicalAddress,
+        setBusinessMainImage,
+        setBusinessName,
+        setBusinessPhones,
+        setBusinessWebsite,
+        setBusinessManagerName,
+        performSearch,
+        getBusinessProductsOrServices,
+        getBusinessProductsOrService,
+        setBusinessEstablishmentYear,
       }}
     >
       {children}

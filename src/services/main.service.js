@@ -1,7 +1,14 @@
-import { businessCategories } from 'assets/mockData';
+import {
+  businessCategories,
+  businessProductsOrServices,
+} from 'assets/mockData';
 
 function getCategories() {
   return businessCategories;
+}
+
+function getProductsOrServices() {
+  return businessProductsOrServices;
 }
 
 async function getService(item) {
@@ -14,4 +21,4 @@ function getCategory(item) {
   return result;
 }
 
-export { getCategories, getService, getCategory };
+export { getCategories, getService, getCategory, getProductsOrServices };

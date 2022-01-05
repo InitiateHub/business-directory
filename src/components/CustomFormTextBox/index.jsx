@@ -19,6 +19,7 @@ const CustomFormTextBox = ({
   isDisabled,
   endAdornment,
   startAdornment,
+  ...rest
 }) => {
   const classes = useStyles();
 
@@ -45,6 +46,7 @@ const CustomFormTextBox = ({
         onChange={e => handleOnChange(e)}
         endAdornment={endAdornment}
         startAdornment={startAdornment}
+        {...rest}
       />
     </FormControl>
   );

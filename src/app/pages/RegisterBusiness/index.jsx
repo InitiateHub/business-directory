@@ -20,39 +20,37 @@ function RegisterBusiness() {
 
   const {
     isLoading,
-    catalogueImages,
-    category,
-    description,
-    email,
-    gpsLocation,
-    latitude,
-    longitude,
-    location,
-    mainImage,
-    name,
-    numberofEmployees,
-    phones,
-    services,
-    website,
+    firstName,
+    lastName,
+    personalEmail,
+    businessDescription,
+    businessEmail,
+    businessPhysicalAddress,
+    businessMainImage,
+    businessName,
+    businessWebsite,
     registerBusiness,
     isRegisterFormValid,
-    setCatalogueImages,
-    setFolderUID,
-    setCategory,
-    setDescription,
-    setEmail,
-    setGpsLocation,
-    setLatitude,
-    setLongitude,
-    setLocation,
-    setMainImage,
-    setName,
-    setNumberOfEmployees,
-    setPhones,
-    setWebsite,
+    businessManagerName,
+    setFirstName,
+    setLastName,
+    setPersonalEmail,
+    setPersonalPhones,
+    setBusinessDescription,
+    setBusinessEmail,
+    setBusinessPhysicalAddress,
+    setBusinessMainImage,
+    setBusinessName,
+    setBusinessPhones,
+    setBusinessWebsite,
     getBusinessCategories,
     getBusinessCategory,
-    setSelectedCategories,
+    setSelectedBusinessCategories,
+    setBusinessProductsOrServices,
+    setBusinessManagerName,
+    getBusinessProductsOrServices,
+    getBusinessProductsOrService,
+    setBusinessEstablishmentYear,
   } = useBusinesses();
 
   const subText =
@@ -75,10 +73,6 @@ function RegisterBusiness() {
     return filtered;
   };
 
-  // useEffect(() => {
-  //   console.log(email);
-  // }, [email]);
-
   return (
     <>
       <Hero
@@ -100,40 +94,29 @@ function RegisterBusiness() {
           // spacing={3}
         >
           <Grid container className={classes.content} spacing={3}>
+            <Grid item xs={12}>
+              <Typography variant="h5">Contact Information</Typography>
+            </Grid>
             <Grid item xs={12} sm={6}>
               <CustomFormTextBox
                 isDisabled={isLoading}
-                label="Business Name"
-                value={name}
-                handleOnChange={e => setName(e.target.value)}
+                required
+                label="First Name"
+                value={firstName}
+                handleOnChange={e => setFirstName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <CustomFormTextBox
                 isDisabled={isLoading}
-                label="Description"
-                value={description}
-                handleOnChange={e => setDescription(e.target.value)}
+                required
+                label="Last Name"
+                value={lastName}
+                handleOnChange={e => setLastName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <CustomFormTextBox
-                isDisabled={isLoading}
-                label="Location"
-                value={location}
-                handleOnChange={e => setLocation(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <CustomFormTextBox
-                isDisabled={isLoading}
-                label="Email"
-                value={email}
-                handleOnChange={e => setEmail(e.target.value)}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <CustomFormControl label="Phones">
+              <CustomFormControl label="Phone(s)" required>
                 <DataItemPicker
                   multiple
                   freeSolo
@@ -146,7 +129,74 @@ function RegisterBusiness() {
                   }
                   isDropdown={false}
                   onChange={x => {
-                    setPhones(x);
+                    setPersonalPhones(x);
+                  }}
+                />
+              </CustomFormControl>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <CustomFormTextBox
+                isDisabled={isLoading}
+                required
+                label="Email Address"
+                value={personalEmail}
+                handleOnChange={e => setPersonalEmail(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h5">Business Information</Typography>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <CustomFormTextBox
+                isDisabled={isLoading}
+                required
+                label="Business Name"
+                value={businessName}
+                handleOnChange={e => setBusinessName(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <CustomFormTextBox
+                isDisabled={isLoading}
+                required
+                label="Business Manager Name"
+                value={businessManagerName}
+                handleOnChange={e => setBusinessManagerName(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <CustomFormTextBox
+                isDisabled={isLoading}
+                required
+                label="Physical Address of Business"
+                value={businessPhysicalAddress}
+                handleOnChange={e => setBusinessPhysicalAddress(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <CustomFormTextBox
+                isDisabled={isLoading}
+                required
+                label="Business Email"
+                value={businessEmail}
+                handleOnChange={e => setBusinessEmail(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <CustomFormControl label="Business Phone(s)" required>
+                <DataItemPicker
+                  multiple
+                  freeSolo
+                  selectOnFocus
+                  clearOnBlur
+                  loading={false}
+                  loadingText=""
+                  filterOptions={(options, params) =>
+                    filterOptions(options, params)
+                  }
+                  isDropdown={false}
+                  onChange={x => {
+                    setBusinessPhones(x);
                   }}
                 />
               </CustomFormControl>
@@ -155,22 +205,51 @@ function RegisterBusiness() {
               <CustomFormTextBox
                 isDisabled={isLoading}
                 label="Website"
-                value={website}
-                handleOnChange={e => setWebsite(e.target.value)}
+                value={businessWebsite}
+                handleOnChange={e => setBusinessWebsite(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <CustomFormTextBox isDisabled={isLoading} label="Upload Logo" />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <CustomFormControl label="Categories">
+              <CustomFormControl label="Business Categories" required>
                 <DataItemPicker
                   multiple
-                  onChange={x => setSelectedCategories(x)}
+                  onChange={x => setSelectedBusinessCategories(x)}
                   initialOptions={getBusinessCategories}
-                  handleGetData={x => getBusinessCategories(x)}
+                  handleGetData={x => getBusinessCategory(x)}
                 />
               </CustomFormControl>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <CustomFormControl label="Products or Services Rendered" required>
+                <DataItemPicker
+                  multiple
+                  freeSolo
+                  selectOnFocus
+                  clearOnBlur
+                  onChange={x => setBusinessProductsOrServices(x)}
+                  initialOptions={getBusinessProductsOrServices}
+                  handleGetData={x => getBusinessProductsOrService(x)}
+                />
+              </CustomFormControl>
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <CustomFormTextBox
+                isDisabled={isLoading}
+                required
+                multiline
+                minRows={4}
+                maxRows={5}
+                label="Description of Business"
+                value={businessDescription}
+                handleOnChange={e => setBusinessDescription(e.target.value)}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <CustomFormTextBox
+                isDisabled={isLoading}
+                required
+                label="Upload Business Logo/Image"
+              />
             </Grid>
             <Grid item container>
               <Grid item xs={12} sm={6}>
