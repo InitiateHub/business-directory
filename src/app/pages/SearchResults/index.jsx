@@ -12,10 +12,6 @@ function DirectoryHome() {
   const classes = useStyles();
 
   useDocumentTitle('Home | TheBusinessDirectory');
-  const heroTitle =
-    'The fastest way to find businesses, products & services in Ghana';
-  const heroSubTitle =
-    'Et has minim elitr intellegat. Mea aeterno eleifend antiopam ad, nam no suscipit quaerendum. At nam minimum ponderum. Est audiam animal molestiae te.';
 
   const { businesses, fetchBusinesses } = useBusinesses();
 

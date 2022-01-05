@@ -3,18 +3,33 @@ import { Grid, Box, Typography } from '@mui/material';
 import PropTypes from 'prop-types';
 import BusinessItem from 'components/BusinessItem';
 import { useBusinesses } from 'hooks/Context';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import useStyles from './styles';
 
 const SearchResultsList = () => {
   const classes = useStyles();
-  const { isLoading, businesses } = useBusinesses();
+  const {
+    isLoading,
+    businesses,
+    fetchBusinesses,
+    searchResults,
+    setSearchResults,
+  } = useBusinesses();
+
+  const [searchParams] = useSearchParams();
+
+  const [value, setValue] = useState(
+    searchParams.get('q')?.toLowerCase() || '',
+  );
 
   return (
     <Grid item container xs={12} sm={8} className={classes.main}>
-      <Typography variant="h2">All Businesses</Typography>
-      {businesses && businesses.length > 0 ? (
+      <Typography variant="h2">
+        You searched for: <Typography variant="h5">{`"${value}"`}</Typography>
+      </Typography>
+      {searchResults && searchResults.length > 0 ? (
         <Grid container className={classes.content} spacing={3}>
-          {businesses.map(item => {
+          {searchResults.map(item => {
             return <BusinessItem key={item.id} business={item} />;
           })}
         </Grid>
@@ -24,7 +39,8 @@ const SearchResultsList = () => {
         </Grid>
       ) : (
         <Grid container className={classes.content}>
-          <Typography>No Businesses Found</Typography>
+          <Typography>There are no results matching your query.</Typography>
+          <Typography>Possible Solutions</Typography>
         </Grid>
       )}
     </Grid>

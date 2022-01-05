@@ -10,12 +10,7 @@ import PropTypes from 'prop-types';
 import { getFirestore } from 'firebase/firestore';
 import firebaseConfig from 'utils/firebase.config';
 import fbStorageService from 'services/firebase.storage.service';
-import {
-  getServices,
-  getCategories,
-  getService,
-  getCategory,
-} from 'services/main.service';
+import { getCategories, getCategory } from 'services/main.service';
 import { v4 as uuid } from 'uuid';
 import config from 'utils/config';
 import storageService from 'services/storage.service';
@@ -50,13 +45,14 @@ const BusinessDirectoryProvider = ({ children }) => {
   const [name, setName] = useState('');
   const [numberofEmployees, setNumberOfEmployees] = useState('');
   const [phones, setPhones] = useState([]);
-  const [services, setServices] = useState([]);
+  const [services, setCategories] = useState([]);
   const [website, setWebsite] = useState('');
   const [id, setId] = useState('');
   const [isRegisterFormValid, setIsRegisterFormValid] = useState(false);
   const [theme, setTheme] = useState();
-  const [selectedServices, setSelectedServices] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState();
+  const [searchResults, setSearchResults] = useState([]);
 
   useEffect(() => {
     setIsRegisterFormValid(
@@ -101,27 +97,19 @@ const BusinessDirectoryProvider = ({ children }) => {
     setName('');
     setNumberOfEmployees('');
     setPhones([]);
-    setServices([]);
+    setCategories([]);
     setWebsite('');
     setId('');
     selectedCategory();
-    selectedServices([]);
+    selectedCategories([]);
   };
 
   function getBusinessCategories() {
     return getCategories();
   }
 
-  function getBusinessServices() {
-    return getServices();
-  }
-
   function getBusinessCategory(item) {
     return getCategory(item);
-  }
-
-  function getBusinessService(item) {
-    return getService(item);
   }
 
   function getTheme() {
@@ -228,7 +216,9 @@ const BusinessDirectoryProvider = ({ children }) => {
         isRegisterFormValid,
         theme,
         selectedCategory,
-        selectedServices,
+        selectedCategories,
+        searchResults,
+        setSearchResults,
         clear,
         fetchBusinesses,
         fetchBusiness,
@@ -249,16 +239,13 @@ const BusinessDirectoryProvider = ({ children }) => {
         setName,
         setNumberOfEmployees,
         setPhones,
-        setServices,
+        setCategories,
         setWebsite,
         setId,
         getTheme,
         getBusinessCategories,
-        getBusinessServices,
         getBusinessCategory,
-        getBusinessService,
-        setSelectedCategory,
-        setSelectedServices,
+        setSelectedCategories,
       }}
     >
       {children}

@@ -1,23 +1,61 @@
-import React from 'react';
-import {
-  Typography,
-  Button,
-  FilledInput,
-  OutlinedInput,
-  InputAdornment,
-  FormControl,
-  Input,
-} from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { OutlinedInput, InputAdornment, FormControl } from '@mui/material';
 import { Search } from '@mui/icons-material';
-import CustomButton from 'components/CustomButton';
-import { useLocation } from 'react-router-dom';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import LinkButton from 'components/LinkButton';
+import { useBusinesses } from 'hooks/Context';
 import useStyles from './styles';
 
-function SearchBar({ value, handleChange }) {
+function SearchBar() {
+  const { businesses, fetchBusinesses, searchResults, setSearchResults } =
+    useBusinesses();
+
   const classes = useStyles();
 
-  const location = useLocation();
-  console.log(JSON.stringify(new URLSearchParams(location), null, 2));
+  const navigate = useNavigate();
+
+  const [searchParams] = useSearchParams();
+
+  const [value, setValue] = useState(
+    searchParams.get('q')?.toLowerCase() || '',
+  );
+
+  const [results, setResults] = useState([]);
+
+  useEffect(() => {
+    // const currentParams = Object.fromEntries([...searchParams]);
+
+    performSearch();
+
+    console.log('res', searchResults);
+
+    // console.log(JSON.stringify(currentParams)); // get new values onchange
+  }, [businesses, searchParams]);
+
+  const performSearch = () => {
+    const lowerValue = value?.toLowerCase();
+    if (businesses) {
+      const nameRes = businesses.filter(e =>
+        e.name.toLowerCase().includes(lowerValue),
+      );
+      const descRes = businesses.filter(e =>
+        e.description.toLowerCase().includes(lowerValue),
+      );
+      const locRes = businesses.filter(e =>
+        e.location.toLowerCase().includes(lowerValue),
+      );
+      const combinedRes = [...nameRes, ...descRes, ...locRes];
+      const newRes = Array.from(new Set(combinedRes));
+      setSearchResults(newRes);
+    }
+  };
+
+  const handleKeyUp = e => {
+    if (e.key === 'Enter') {
+      navigate(`/search?q=${value}`);
+      performSearch();
+    }
+  };
 
   return (
     <FormControl variant="filled" hiddenLabel className={classes.formControl}>
@@ -25,9 +63,10 @@ function SearchBar({ value, handleChange }) {
         className={classes.search}
         fullWidth
         type="text"
-        // disableUnderline
+        placeholder="Search for any business"
         value={value}
-        onChange={x => handleChange(x)}
+        onChange={x => setValue(x.target.value)}
+        onKeyDown={e => handleKeyUp(e)}
         startAdornment={
           <InputAdornment position="start">
             <Search />
@@ -35,14 +74,12 @@ function SearchBar({ value, handleChange }) {
         }
         endAdornment={
           <InputAdornment position="end">
-            <CustomButton
+            <LinkButton
               label="Search"
-              aria-label="begin search"
-              // onClick={handleClickShowPassword}
+              route={value ? `/search?q=${value}` : ''}
             />
           </InputAdornment>
         }
-        // label="Search"
       />
     </FormControl>
   );

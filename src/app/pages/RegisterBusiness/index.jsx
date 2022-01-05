@@ -52,10 +52,7 @@ function RegisterBusiness() {
     setWebsite,
     getBusinessCategories,
     getBusinessCategory,
-    getBusinessServices,
-    getBusinessService,
-    setSelectedCategory,
-    setSelectedServices,
+    setSelectedCategories,
   } = useBusinesses();
 
   const subText =
@@ -166,21 +163,12 @@ function RegisterBusiness() {
               <CustomFormTextBox isDisabled={isLoading} label="Upload Logo" />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <CustomFormControl label="Category">
-                <DataItemPicker
-                  onChange={x => setSelectedCategory(x)}
-                  initialOptions={getBusinessCategories}
-                  handleGetData={x => getBusinessCategory(x)}
-                />
-              </CustomFormControl>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <CustomFormControl label="Services">
+              <CustomFormControl label="Categories">
                 <DataItemPicker
                   multiple
-                  onChange={x => setSelectedServices(x)}
-                  initialOptions={getBusinessServices}
-                  handleGetData={x => getBusinessServices(x)}
+                  onChange={x => setSelectedCategories(x)}
+                  initialOptions={getBusinessCategories}
+                  handleGetData={x => getBusinessCategories(x)}
                 />
               </CustomFormControl>
             </Grid>

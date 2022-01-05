@@ -1,15 +1,11 @@
-import { businessCategories, businessServices } from 'assets/mockData';
-
-function getServices() {
-  return businessServices;
-}
+import { businessCategories } from 'assets/mockData';
 
 function getCategories() {
   return businessCategories;
 }
 
 async function getService(item) {
-  const result = await businessServices.find(x => x === item);
+  const result = await businessCategories.find(x => x === item);
   return result;
 }
 
@@ -18,4 +14,4 @@ function getCategory(item) {
   return result;
 }
 
-export { getServices, getCategories, getService, getCategory };
+export { getCategories, getService, getCategory };
