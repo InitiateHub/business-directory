@@ -6,13 +6,25 @@ import useStyles from './styles';
 
 const Hero = ({
   bgImagePath,
+  bgColor,
   height,
   title,
   subTitle,
   hasSearch,
   contentVerticalAlign,
+  gradientFrom,
+  gradientTo,
+  mBlock,
 }) => {
-  const classes = useStyles({ height, bgImagePath, contentVerticalAlign });
+  const classes = useStyles({
+    bgColor,
+    height,
+    bgImagePath,
+    contentVerticalAlign,
+    gradientFrom,
+    gradientTo,
+    mBlock,
+  });
 
   return (
     <Grid item container className={classes.heroContainer}>
@@ -46,19 +58,26 @@ const Hero = ({
 
 Hero.propTypes = {
   bgImagePath: PropTypes.string,
-  height: PropTypes.number,
+  height: PropTypes.string,
   title: PropTypes.string,
   subTitle: PropTypes.string,
   hasSearch: PropTypes.bool,
   contentVerticalAlign: PropTypes.string,
+  bgColor: PropTypes.string,
+  gradientFrom: PropTypes.string,
+  gradientTo: PropTypes.string,
+  mBlock: PropTypes.string,
 };
 
 Hero.defaultProps = {
   hasSearch: true,
   contentVerticalAlign: 'center',
-  height: 560,
+  height: '560px',
   title: '',
   subTitle: '',
+  bgColor: '#f5f5f5',
+  gradientFrom: '#00000099',
+  gradientTo: '#00000099',
 };
 
 export default Hero;

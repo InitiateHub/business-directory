@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import { ThemeProvider } from '@mui/material/styles';
@@ -17,6 +17,7 @@ import ReactGA from 'react-ga';
 import DirectoryHome from './pages/DirectoryHome';
 import RegisterBusiness from './pages/RegisterBusiness';
 import BusinessDetails from './pages/BusinessDetails';
+import SearchResults from './pages/SearchResults';
 
 ReactGA.initialize('G-Y0J7S9KCCD');
 ReactGA.pageview(window.location.pathname + window.location.search);
@@ -48,25 +49,20 @@ function App() {
             : lightTheme
         }
       >
-        <Router>
+        <BrowserRouter>
           <Compose components={[BusinessDirectoryProvider]}>
             <NavBar />
             <Box>
-              <Switch>
-                <Route path="/business/:id">
-                  <BusinessDetails />
-                </Route>
-                <Route path="/register">
-                  <RegisterBusiness />
-                </Route>
-                <Route exact path="/">
-                  <DirectoryHome />
-                </Route>
-              </Switch>
+              <Routes>
+                <Route path="/business/:id" element={<BusinessDetails />} />
+                <Route path="/search" element={<SearchResults />} />
+                <Route path="/register" element={<RegisterBusiness />} />
+                <Route exact path="/" element={<DirectoryHome />} />
+              </Routes>
             </Box>
             <Footer />
           </Compose>
-        </Router>
+        </BrowserRouter>
       </ThemeProvider>
     </StyledEngineProvider>
   );

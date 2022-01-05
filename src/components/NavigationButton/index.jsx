@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Button from '@mui/material/Button';
 import { changeNavigationAction } from 'store/actions/ui';
@@ -9,7 +9,7 @@ import useStyles from './styles';
 function NavigationButton(props) {
   const classes = useStyles(props);
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -24,7 +24,7 @@ function NavigationButton(props) {
 
   const navigateToByRouter = () => {
     if (route) {
-      history.push(route);
+      navigate(route);
     }
   };
 

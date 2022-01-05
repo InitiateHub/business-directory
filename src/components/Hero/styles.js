@@ -2,13 +2,13 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles(theme => ({
   heroContainer: props => ({
-    minHeight: `${props.height}px`,
-    backgroundImage: `linear-gradient(0deg, #00000099, #00000099),        
+    minHeight: `${props.height}`,
+    backgroundImage: `linear-gradient(0deg, ${props.gradientFrom}, ${props.gradientTo}),        
     url(${props.bgImagePath})`,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: `${props.bgColor}`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
-    margin: -4,
+    margin: -1,
 
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(3),
@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
         marginBottom: 0,
       },
       '&:only-child': {
-        marginBottom: theme.spacing(0),
+        marginBlock: `${theme.spacing(props.mBlock ?? 4)} `,
       },
     },
   }),

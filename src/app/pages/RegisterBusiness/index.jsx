@@ -90,7 +90,7 @@ function RegisterBusiness() {
         bgImagePath={HeroBG}
         hasSearch={false}
         // contentVerticalAlign="flex-end"
-        height={300}
+        height="300px"
       />
       <Grid item container className={classes.box}>
         <Grid item xs={false} sm={2} />
