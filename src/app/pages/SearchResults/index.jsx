@@ -40,11 +40,18 @@ function DirectoryHome() {
       />
       <Grid item container className={classes.box}>
         <Grid item xs={false} sm={2} />
-        <Grid item container xs={12} sm={8} className={classes.main}>
-          <Typography variant="h2">
+        <Grid
+          item
+          container
+          xs={12}
+          flexDirection="column"
+          sm={8}
+          className={classes.main}
+        >
+          <Typography mb={2} variant="h2">
             You searched for:{' '}
-            <Typography variant="h5">{`"${value}"`}</Typography>
           </Typography>
+          <Typography mb={5} variant="h5">{`"${value}"`}</Typography>
           <SearchResultsList />
         </Grid>
         <Grid item xs={false} sm={2} />

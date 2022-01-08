@@ -9,6 +9,7 @@ import HeroBG from 'assets/images/plantain.png';
 import { useBusinesses } from 'hooks/Context';
 import useDocumentTitle from 'hooks/useDocumentTitle';
 import DataItemPicker from 'components/DataItemPicker';
+import UploadButtonFormControl from 'components/UploadButtonFormControl';
 import useStyles from './styles';
 
 const filter = createFilterOptions();
@@ -32,6 +33,8 @@ function RegisterBusiness() {
     registerBusiness,
     isRegisterFormValid,
     businessManagerName,
+    catalogueImages,
+    setCatalogueImages,
     setFirstName,
     setLastName,
     setPersonalEmail,
@@ -245,10 +248,24 @@ function RegisterBusiness() {
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <CustomFormTextBox
+              <UploadButtonFormControl
+                isDisabled={isLoading}
+                multiple={false}
+                required
+                label="Upload Business Logo"
+                buttonLabel="Upload"
+                attachments={businessMainImage}
+                setAttachments={setBusinessMainImage}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <UploadButtonFormControl
                 isDisabled={isLoading}
                 required
-                label="Upload Business Logo/Image"
+                label="Upload Business Catalogue Images"
+                buttonLabel="Upload"
+                attachments={catalogueImages}
+                setAttachments={setCatalogueImages}
               />
             </Grid>
             <Grid item container>

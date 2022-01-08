@@ -32,9 +32,9 @@ const SearchResultsList = () => {
             <Grid item sm={12}>
               <Typography variant="h5" component="p">
                 Sorry, there are no results matching your search query 😥.
-                <Typography variant="h5" component="p">
-                  Possible Solutions may be:{' '}
-                </Typography>
+              </Typography>
+              <Typography variant="h5" component="p">
+                Possible Solutions may be:{' '}
               </Typography>
             </Grid>
             <Grid item sm={12}>

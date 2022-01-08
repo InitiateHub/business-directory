@@ -51,6 +51,9 @@ function SearchBar() {
             <Search />
           </InputAdornment>
         }
+        inputProps={{
+          type: 'search',
+        }}
         endAdornment={
           <InputAdornment position="end">
             <LinkButton

@@ -22,14 +22,14 @@ const DataItemPicker = ({
   isDropdown,
   ...rest
 }) => {
-  const globalClasses = useGlobalStyles();
   const classes = useStyles();
 
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
   const [options, setOptions] = useState(initialOptions ?? []);
-  const [value, setValue] = useState();
+  const [pickerValue, setPickerValue] = useState();
+  const [field, setField] = useState('');
 
   // const loading = open && options?.length === 0;
 
@@ -49,8 +49,18 @@ const DataItemPicker = ({
   );
 
   const handleChangeTextField = e => {
-    // setField(e.target.value);
+    const { target } = e;
+
+    setField(
+      state => (!Number.isNaN(Number(target.value)) && target.value) || state,
+    );
+
     debouncedLoad(e.target.value);
+  };
+
+  const handlePickerChange = value => {
+    setPickerValue(value);
+    onChange(value);
   };
 
   return (
@@ -66,11 +76,11 @@ const DataItemPicker = ({
         setOpen(false);
       }}
       onChange={(e, val) => {
-        onChange(val);
+        handlePickerChange(val);
       }}
       getOptionLabel={option => `${option ?? option}`}
       isOptionEqualToValue={(option, optionValue) => option === optionValue}
-      value={value}
+      value={pickerValue}
       options={options}
       loading={loading || (open && options?.length === 0)}
       multiple={multiple}
@@ -80,6 +90,7 @@ const DataItemPicker = ({
           type="text"
           onChange={handleChangeTextField}
           className={classes.input}
+          value={field}
           InputProps={{
             ...params.InputProps,
             endAdornment: (

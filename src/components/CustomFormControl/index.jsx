@@ -9,12 +9,17 @@ const CustomFormControl = ({
   className,
   required,
   children,
+  fullWidth,
   ...rest
 }) => {
   const classes = useStyles();
 
   return (
-    <FormControl className={`${classes.formControl} ${className}`} {...rest}>
+    <FormControl
+      fullWidth={fullWidth}
+      className={`${classes.formControl} ${className}`}
+      {...rest}
+    >
       {label ? (
         <FormLabel
           htmlFor={id}
@@ -33,6 +38,7 @@ CustomFormControl.propTypes = {
   className: PropTypes.string,
   label: PropTypes.string,
   required: PropTypes.bool,
+  fullWidth: PropTypes.bool,
 };
 
 CustomFormControl.defaultProps = {
@@ -40,6 +46,7 @@ CustomFormControl.defaultProps = {
   className: '',
   label: '',
   required: false,
+  fullWidth: true,
 };
 
 export default CustomFormControl;

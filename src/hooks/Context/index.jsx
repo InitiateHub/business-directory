@@ -61,9 +61,9 @@ const BusinessDirectoryProvider = ({ children }) => {
   const [businessProductsOrServices, setBusinessProductsOrServices] = useState(
     [],
   );
-  const [firstName, setFirstName] = useState([]);
-  const [lastName, setLastName] = useState([]);
-  const [personalEmail, setPersonalEmail] = useState([]);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [personalEmail, setPersonalEmail] = useState('');
   const [personalPhones, setPersonalPhones] = useState([]);
 
   useEffect(() => {

@@ -10,15 +10,15 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down('sm')]: {
       padding: theme.spacing(3),
     },
-    '& > *': {
-      marginBottom: theme.spacing(4),
-      '&:last-child': {
-        marginBottom: 0,
-      },
-      '&:only-child': {
-        marginBottom: 0,
-      },
-    },
+    // '& > *': {
+    //   marginBottom: theme.spacing(2),
+    //   '&:last-child': {
+    //     marginBottom: theme.spacing(4),
+    //   },
+    //   '&:only-child': {
+    //     marginBottom: theme.spacing(4),
+    //   },
+    // },
   },
   box: {
     // display: 'flex',

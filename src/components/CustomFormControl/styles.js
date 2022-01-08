@@ -13,7 +13,7 @@ export const useStyles = makeStyles(theme => ({
     },
   },
   formControl: {
-    width: '100%',
+    // width: '100%',
     // marginTop: theme.spacing(2),
     // marginBottom: theme.spacing(2.5),
   },
