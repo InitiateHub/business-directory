@@ -17,7 +17,13 @@ import useStyles from './styles';
 const BusinessItem = ({ business }) => {
   const classes = useStyles();
 
-  const { name, description, mainImage, phones, location } = business;
+  const {
+    businessName,
+    businessDescription,
+    businessMainImage,
+    businessPhones,
+    businessPhysicalAddress,
+  } = business;
   const placeholderImage = 'https://via.placeholder.com/150';
   // console.log(business);
 
@@ -28,26 +34,26 @@ const BusinessItem = ({ business }) => {
           <CardMedia
             component="img"
             className={classes.cardImage}
-            image={mainImage || placeholderImage}
-            alt="business image"
+            image={businessMainImage || placeholderImage}
+            alt="logo"
           />
         </Grid>
         <Grid item container xs={12} md={8}>
           <Box className={classes.textContent}>
             <Typography component="h1" variant="h6">
-              {name && name}
+              {businessName && businessName}
             </Typography>
             <Typography variant="subtitle1" component="p">
-              {truncateString(description && description, 30)}
+              {truncateString(businessDescription && businessDescription, 30)}
             </Typography>
             <div className={classes.info}>
-              {phones?.length > 0 && (
+              {businessPhones?.length > 0 && (
                 <Box
                   display="flex"
                   alignItems="center"
                   className={classes.infoitem}
                 >
-                  <Phone className={classes.icon} /> {phones[0]}
+                  <Phone className={classes.icon} /> {businessPhones[0]}
                 </Box>
               )}
               <Box
@@ -55,13 +61,14 @@ const BusinessItem = ({ business }) => {
                 alignItems="center"
                 className={classes.infoitem}
               >
-                <LocationOn className={classes.icon} /> {location && location}
+                <LocationOn className={classes.icon} />{' '}
+                {businessPhysicalAddress && businessPhysicalAddress}
               </Box>
             </div>
             <LinkButton
               variant="outlined"
               label="View Business"
-              route={`/business/${business?.id}`}
+              route={`/business/${business?.internalId}`}
             />
           </Box>
         </Grid>

@@ -8,6 +8,7 @@ import useStyles from './styles';
 const AllBusinesses = () => {
   const classes = useStyles();
   const { isLoading, businesses } = useBusinesses();
+  // console.log(businesses);
 
   return (
     <Grid container className={classes.box}>
@@ -17,7 +18,7 @@ const AllBusinesses = () => {
         {businesses && businesses.length > 0 ? (
           <Grid container className={classes.content} spacing={3}>
             {businesses.map(item => {
-              return <BusinessItem key={item.id} business={item} />;
+              return <BusinessItem key={item.internalId} business={item} />;
             })}
           </Grid>
         ) : isLoading ? (

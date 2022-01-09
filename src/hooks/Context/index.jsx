@@ -17,11 +17,7 @@ import {
 import { v4 as uuid } from 'uuid';
 import config from 'utils/config';
 import storageService from 'services/storage.service';
-
-const createBusiness = (task, type) => ({
-  id: task.Id,
-  guid: task.GUID,
-});
+import { createBusiness } from 'utils/helpers';
 
 // we create a React Context, for this to be accessible
 // from a component later
@@ -133,13 +129,13 @@ const BusinessDirectoryProvider = ({ children }) => {
     const lowerValue = value?.toLowerCase();
     if (businesses) {
       const nameRes = businesses.filter(e =>
-        e?.name?.toLowerCase().includes(lowerValue),
+        e?.businessName?.toLowerCase().includes(lowerValue),
       );
       const descRes = businesses.filter(e =>
-        e?.description?.toLowerCase().includes(lowerValue),
+        e?.businessDescription?.toLowerCase().includes(lowerValue),
       );
       const locRes = businesses.filter(e =>
-        e?.location?.toLowerCase().includes(lowerValue),
+        e?.businessPhysicalAddress?.toLowerCase().includes(lowerValue),
       );
       const combinedRes = [...nameRes, ...descRes, ...locRes];
       const newRes = Array.from(new Set(combinedRes));
@@ -177,7 +173,42 @@ const BusinessDirectoryProvider = ({ children }) => {
   async function fetchBusinesses() {
     setIsLoading(true);
     const _results = await fbStorageService.getAllApprovedBusinesses();
-    setBusinesses(_results);
+
+    const list = [];
+    // console.info(_results);
+
+    _results.forEach(async i => {
+      let logo;
+      if (i.internalId) {
+        fbStorageService.getLogo(i.internalId).then(res => {
+          logo = res;
+        });
+        // logo = data;
+        if (i.internalId === '444746cd-99fa-41db-9f4c-b8b76780a56c')
+          console.log('logo data: ', logo);
+      }
+
+      let businessCatalogueImages = [];
+      if (i.internalId) {
+        fbStorageService.getCatalogueImages(i.internalId).then(res => {
+          businessCatalogueImages = res;
+        });
+        // businessCatalogueImages = data;
+        if (i.internalId === '444746cd-99fa-41db-9f4c-b8b76780a56c')
+          console.log('catImgs: ', businessCatalogueImages);
+      }
+
+      const newBusiness = createBusiness(i);
+
+      newBusiness.businessMainImage = logo || i.businessMainImage;
+
+      newBusiness.catalogueImages =
+        businessCatalogueImages || i.businessCatalogueImages;
+
+      list.push(newBusiness);
+    });
+
+    setBusinesses(list);
 
     setIsLoading(false);
   }
@@ -232,7 +263,7 @@ const BusinessDirectoryProvider = ({ children }) => {
       selectedBusinessCategories,
       businessWebsite,
       businessManagerName,
-      id: internalId,
+      internalId,
     });
 
     clear();

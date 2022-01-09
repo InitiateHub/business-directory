@@ -10,7 +10,14 @@ import {
   doc,
   serverTimestamp,
 } from 'firebase/firestore';
-import { getStorage, ref, uploadBytes } from 'firebase/storage';
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  listAll,
+  asd,
+} from 'firebase/storage';
 
 import { allBusinesses } from 'assets/mockData';
 import { initializeApp, getApps } from 'firebase/app';
@@ -33,6 +40,12 @@ const storage = getStorage();
 // const storageRef = ref(storage);
 
 const businessFilesDirectory = ref(storage, 'business_files');
+const getLogoDirectory = businessId => {
+  return `${businessFilesDirectory}/${businessId}/logo`;
+};
+const getCatalogueImagesDirectory = businessId => {
+  return `${businessFilesDirectory}/${businessId}/catalogue`;
+};
 
 const getBusiness = async id => {
   let result;
@@ -69,11 +82,11 @@ const getAllApprovedBusinesses = async () => {
 
   const querySnapshot = await getDocs(reqQuery);
   querySnapshot.forEach(item => {
-    if (item.data().isVerified)
-      _results.push({
-        ...item.data(),
-        id: item.id,
-      });
+    // if (item.data().isVerified)
+    _results.push({
+      ...item.data(),
+      id: item.id,
+    });
   });
 
   return _results;
@@ -127,28 +140,73 @@ const registerBusiness = async data => {
   }
 };
 
-const uploadFile = (businessId, input) => {
+const uploadFile = async (businessId, input) => {
   if (input.constructor.name === 'File') {
-    const fileRef = ref(
-      storage,
-      `${businessFilesDirectory}/${businessId}/logo/${input?.name}`,
-    );
+    const fileRef = ref(storage, getLogoDirectory(businessId, input?.name));
 
-    uploadBytes(fileRef, input).then(snapshot =>
-      console.log('logo upload Complete!: ', snapshot),
-    );
+    uploadBytes(fileRef, input)
+      .then(snapshot => console.log('logo upload Complete!: ', snapshot))
+      .catch(e => console.log('Error Uploading Logo: ', e));
+    console.log(fileRef);
   } else if (input.constructor.name === 'Array') {
     input.forEach(item => {
       const fileRef = ref(
         storage,
-        `${businessFilesDirectory}/${businessId}/catalogue/${item?.name}`,
+        getCatalogueImagesDirectory(businessId, item?.name),
       );
 
-      uploadBytes(fileRef, item).then(snapshot =>
-        console.log('catalogue upload Complete!: ', snapshot),
-      );
+      uploadBytes(fileRef, item)
+        .then(snapshot => console.log('catalogue upload Complete!: ', snapshot))
+        .catch(e => console.log('Error Uploading Catalogue Image: ', e));
+      console.log(fileRef);
     });
   }
+};
+
+const getLogo = async businessId => {
+  const list = [];
+
+  const logoRef = ref(storage, getLogoDirectory(businessId));
+  await listAll(logoRef)
+    .then(res => {
+      res.items.forEach(itemRef => {
+        if (itemRef) {
+          getDownloadURL(itemRef).then(url => {
+            list.push(url);
+          });
+        }
+      });
+    })
+    .catch(error => {
+      console.error('Uh-oh, an error occurred while retrieving Logo!: ', error);
+    });
+  return list[0];
+};
+
+const getCatalogueImages = async businessId => {
+  const list = [];
+
+  const catalogueImagesRef = ref(
+    storage,
+    getCatalogueImagesDirectory(businessId),
+  );
+  listAll(catalogueImagesRef)
+    .then(res => {
+      res.items.forEach(itemRef => {
+        if (itemRef) {
+          getDownloadURL(itemRef).then(url => {
+            list.push(url);
+          });
+        }
+      });
+    })
+    .catch(error => {
+      console.error(
+        'Uh-oh, an error occurred while retrieving Catalogue Images!: ',
+        error,
+      );
+    });
+  return list;
 };
 
 export default {
@@ -156,4 +214,6 @@ export default {
   registerBusiness,
   getBusiness,
   uploadFile,
+  getLogo,
+  getCatalogueImages,
 };

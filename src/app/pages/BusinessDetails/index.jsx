@@ -10,12 +10,14 @@ const BusinessDetails = () => {
   const classes = useStyles();
 
   const { businesses, business, setBusiness, fetchBusiness } = useBusinesses();
-  useDocumentTitle(`${business?.name ?? 'Details'} | TheBusinessDirectory`);
+  useDocumentTitle(
+    `${business?.businessName ?? 'Details'} | TheBusinessDirectory`,
+  );
   const { id } = useParams();
 
   useEffect(() => {
     if (businesses.length > 0) {
-      const biz = businesses?.find(item => item.id === id);
+      const biz = businesses?.find(item => item.internalId === id);
       setBusiness(biz);
     } else {
       fetchBusiness(id);
@@ -28,8 +30,8 @@ const BusinessDetails = () => {
   return (
     <>
       <Hero
-        title={business?.name}
-        bgImagePath={business?.mainImage}
+        title={business?.businessName}
+        bgImagePath={business?.businessMainImage}
         hasSearch={false}
         contentVerticalAlign="center"
       />
@@ -45,18 +47,20 @@ const BusinessDetails = () => {
         >
           <Grid container className={classes.content} spacing={3}>
             <Grid item xs={12} sm={6}>
-              <Typography>{business?.category}</Typography>
-            </Grid>
-            <Grid item xs={12} sm={12}>
-              {business?.phones?.map(item => (
+              {business?.businessSelectedCategories?.map(item => (
                 <Typography key={item}>{item}</Typography>
               ))}
             </Grid>
             <Grid item xs={12} sm={12}>
-              <Typography>{business?.email}</Typography>
+              {business?.businessPhones?.map(item => (
+                <Typography key={item}>{item}</Typography>
+              ))}
             </Grid>
             <Grid item xs={12} sm={12}>
-              <Typography>{business?.description}</Typography>
+              <Typography>{business?.businessEmail}</Typography>
+            </Grid>
+            <Grid item xs={12} sm={12}>
+              <Typography>{business?.businessDescription}</Typography>
             </Grid>
           </Grid>
         </Grid>
