@@ -47,10 +47,14 @@ const UploadButtonFormControl = ({
   };
 
   const handleRemoveFile = React.useCallback(() => {
-    if (selectedFileToRemove && selectedFileToRemove.name) {
-      setAttachments(state =>
-        state.filter(i => i?.name !== selectedFileToRemove.name),
-      );
+    if (multiple) {
+      if (selectedFileToRemove && selectedFileToRemove.name) {
+        setAttachments(state =>
+          state.filter(i => i?.name !== selectedFileToRemove.name),
+        );
+      }
+    } else {
+      setAttachments();
     }
   }, [selectedFileToRemove, setAttachments]);
 
@@ -131,7 +135,7 @@ UploadButtonFormControl.propTypes = {
   id: PropTypes.string,
   label: PropTypes.string,
   buttonLabel: PropTypes.string,
-  attachments: PropTypes.array || PropTypes.object,
+  // attachments: PropTypes.array || PropTypes.object,
   setAttachments: PropTypes.func,
   isDisabled: PropTypes.bool,
   multiple: PropTypes.bool,

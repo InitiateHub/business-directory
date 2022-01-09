@@ -68,8 +68,7 @@ const BusinessDirectoryProvider = ({ children }) => {
 
   useEffect(() => {
     setIsRegisterFormValid(
-      !!(
-        firstName?.length &&
+      firstName?.length &&
         lastName?.length &&
         personalEmail?.length &&
         personalPhones?.length &&
@@ -79,14 +78,13 @@ const BusinessDirectoryProvider = ({ children }) => {
         businessPhysicalAddress?.length &&
         businessName?.length &&
         businessPhones?.length &&
-        numberofEmployees?.length &&
-        businessManagerName?.length &&
-        businessEstablishmentYear?.length
-      ),
+        // numberofEmployees?.length &&
+        businessManagerName?.length,
+      // && businessEstablishmentYear?.length,
     );
   }, [
     businessDescription?.length,
-    businessEstablishmentYear?.length,
+    // businessEstablishmentYear?.length,
     businessManagerName?.length,
     businessName?.length,
     businessPhones?.length,
@@ -94,7 +92,7 @@ const BusinessDirectoryProvider = ({ children }) => {
     businessProductsOrServices?.length,
     firstName?.length,
     lastName?.length,
-    numberofEmployees?.length,
+    // numberofEmployees?.length,
     personalEmail?.length,
     personalPhones?.length,
     selectedBusinessCategories?.length,
@@ -123,9 +121,11 @@ const BusinessDirectoryProvider = ({ children }) => {
     setSelectedBusinessCategories([]);
     setBusinessWebsite('');
     setId('');
-    selectedBusinessCategories([]);
+    setSelectedBusinessCategories([]);
     setBusinessManagerName('');
     setBusinessProductsOrServices([]);
+    setBusinessManagerName('');
+    setCatalogueImages([]);
   };
 
   // TODO: Rewrite this search function
@@ -133,13 +133,13 @@ const BusinessDirectoryProvider = ({ children }) => {
     const lowerValue = value?.toLowerCase();
     if (businesses) {
       const nameRes = businesses.filter(e =>
-        e.name.toLowerCase().includes(lowerValue),
+        e?.name?.toLowerCase().includes(lowerValue),
       );
       const descRes = businesses.filter(e =>
-        e.description.toLowerCase().includes(lowerValue),
+        e?.description?.toLowerCase().includes(lowerValue),
       );
       const locRes = businesses.filter(e =>
-        e.location.toLowerCase().includes(lowerValue),
+        e?.location?.toLowerCase().includes(lowerValue),
       );
       const combinedRes = [...nameRes, ...descRes, ...locRes];
       const newRes = Array.from(new Set(combinedRes));
@@ -195,44 +195,43 @@ const BusinessDirectoryProvider = ({ children }) => {
 
     const internalId = uuid();
 
+    if (businessMainImage) {
+      const _result = await fbStorageService.uploadFile(
+        internalId,
+        businessMainImage,
+      );
+    }
+
     if (catalogueImages.length > 0) {
-      setFolderUID(internalId);
-      console.log(folderUID);
-
-      // await apiBriefingsService.createFolderIfNotExists(folderUID);
-
-      // const sendFilesPromise = attachments.map(i =>
-      //   apiBriefingsService.sendFile(i, i.name, folderUID),
-      // );
-
-      // const results = await Promise.allSettled(sendFilesPromise);
-      // const rejected = results
-      //   .filter(result => result.status === 'rejected')
-      //   .map(result => result.reason);
-      // if (rejected.length > 0) {
-      //   console.log(rejected);
-      //   throw new Error(JSON.stringify(rejected));
-      // }
+      const _result = await fbStorageService.uploadFile(
+        internalId,
+        catalogueImages,
+      );
     }
 
     await fbStorageService.registerBusiness({
-      catalogueImages,
+      firstName,
+      lastName,
+      personalEmail,
+      personalPhones,
+      // catalogueImages,
       businessDescription,
       businessEmail,
       businessGpsLocation: businessGpsLocation || {
         Latitude: latitude,
         Longitude: longitude,
       },
-      isVerified,
+      isVerified: false,
       isFeatured,
       businessPhysicalAddress,
-      businessMainImage,
+      // businessMainImage,
       businessName,
       numberofEmployees,
       businessPhones,
       businessProductsOrServices,
       selectedBusinessCategories,
       businessWebsite,
+      businessManagerName,
       id: internalId,
     });
 
